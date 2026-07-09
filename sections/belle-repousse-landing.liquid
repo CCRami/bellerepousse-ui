@@ -178,7 +178,9 @@
     </div>
 
     <div class="belle-repousse-landing__faq">
-      <details open>
+      <p class="belle-repousse-landing__eyebrow">{{ section.settings.faq_eyebrow | escape }}</p>
+      <h2>{{ section.settings.faq_heading | escape }}</h2>
+      <details>
         <summary>{{ section.settings.faq_1_question | escape }}</summary>
         <p>{{ section.settings.faq_1_answer | escape }}</p>
       </details>
@@ -196,8 +198,15 @@
 
 {% stylesheet %}
   .belle-repousse-landing {
-    background: #f8f5f0;
+    background: #fbf2ee;
     color: #201b18;
+    overflow: hidden;
+  }
+
+  .belle-repousse-landing .page-width {
+    box-sizing: border-box;
+    width: min(100%, 1560px);
+    padding-inline: clamp(18px, 4vw, 48px);
   }
 
   .belle-repousse-landing__announcement {
@@ -206,7 +215,7 @@
     align-items: center;
     justify-content: center;
     padding: 8px 16px;
-    background: #203a32;
+    background: #3b1214;
     color: #ffffff;
     font-size: 0.86rem;
     font-weight: 700;
@@ -234,7 +243,7 @@
   .belle-repousse-landing__main-media {
     margin: 0;
     overflow: hidden;
-    border: 1px solid #eaded4;
+    border: 1px solid #ead0c5;
     border-radius: 8px;
     background: #ffffff;
   }
@@ -417,7 +426,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    background: #203a32;
+    background: #3b1214;
     color: #ffffff;
     font-size: 0.84rem;
     font-weight: 800;
@@ -483,7 +492,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    background: #f0ded3;
+    background: #f6ded5;
     color: #7f171f;
     font-weight: 800;
   }
@@ -531,6 +540,12 @@
     gap: 10px;
   }
 
+  .belle-repousse-landing__faq h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    line-height: 1.05;
+  }
+
   .belle-repousse-landing__faq details {
     border: 1px solid #e1d3c7;
     border-radius: 8px;
@@ -539,8 +554,31 @@
   }
 
   .belle-repousse-landing__faq summary {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
     color: #201b18;
     font-weight: 800;
+  }
+
+  .belle-repousse-landing__faq summary::after {
+    content: '+';
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #9b2028;
+    color: #ffffff;
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .belle-repousse-landing__faq details[open] summary::after {
+    content: '-';
   }
 
   .belle-repousse-landing__faq p {
@@ -865,6 +903,18 @@
       "id": "spec_4_value",
       "label": "Specification 4 valeur",
       "default": "21,2 x 8,5 x 3,5 cm, 233 g"
+    },
+    {
+      "type": "text",
+      "id": "faq_eyebrow",
+      "label": "Surtitre FAQ",
+      "default": "Questions frequentes"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "Titre FAQ",
+      "default": "Avant de commencer votre routine"
     },
     {
       "type": "text",

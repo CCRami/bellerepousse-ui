@@ -1,0 +1,280 @@
+<section class="belle-repousse-footer" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <div class="page-width belle-repousse-footer__inner">
+    <div class="belle-repousse-footer__newsletter">
+      <p class="belle-repousse-footer__brand">{{ section.settings.brand | escape }}</p>
+      <h2>{{ section.settings.heading | escape }}</h2>
+      <p>{{ section.settings.copy | escape }}</p>
+
+      {% form 'customer', class: 'belle-repousse-footer__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label class="visually-hidden" for="BelleRepousseFooter-email">
+          {{ section.settings.email_label | escape }}
+        </label>
+        <input
+          id="BelleRepousseFooter-email"
+          type="email"
+          name="contact[email]"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          placeholder="{{ section.settings.email_label | escape }}"
+          required
+        >
+        <button type="submit" aria-label="{{ section.settings.button_label | escape }}">
+          <span aria-hidden="true">-></span>
+        </button>
+      {% endform %}
+    </div>
+
+    <nav class="belle-repousse-footer__nav" aria-label="{{ section.settings.nav_label | escape }}">
+      <a href="{{ section.settings.link_1_url }}">{{ section.settings.link_1_label | escape }}</a>
+      <a href="{{ section.settings.link_2_url }}">{{ section.settings.link_2_label | escape }}</a>
+      <a href="{{ section.settings.link_3_url }}">{{ section.settings.link_3_label | escape }}</a>
+      <a href="{{ section.settings.link_4_url }}">{{ section.settings.link_4_label | escape }}</a>
+      <a href="{{ section.settings.link_5_url }}">{{ section.settings.link_5_label | escape }}</a>
+    </nav>
+
+    <div class="belle-repousse-footer__bottom">
+      <p>{{ section.settings.disclaimer | escape }}</p>
+      <p>{{ section.settings.copyright | escape }}</p>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .belle-repousse-footer {
+    background: #2d2737;
+    color: #ffffff;
+  }
+
+  .belle-repousse-footer__inner {
+    box-sizing: border-box;
+    width: min(100%, 1180px);
+    padding: clamp(48px, 7vw, 84px) clamp(18px, 4vw, 48px) clamp(28px, 5vw, 44px);
+    text-align: center;
+  }
+
+  .belle-repousse-footer__brand {
+    margin: 0 0 10px;
+    color: #ffb3ab;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .belle-repousse-footer h2 {
+    max-width: 920px;
+    margin: 0 auto;
+    font-size: clamp(2.4rem, 5.4vw, 5rem);
+    line-height: 1.02;
+  }
+
+  .belle-repousse-footer__newsletter > p:not(.belle-repousse-footer__brand) {
+    max-width: 720px;
+    margin: 22px auto 0;
+    color: rgb(255 255 255 / 0.74);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    line-height: 1.55;
+  }
+
+  .belle-repousse-footer__form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 54px;
+    max-width: 460px;
+    min-height: 58px;
+    margin: 30px auto 0;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.55);
+    border-radius: 14px;
+    background: rgb(255 255 255 / 0.03);
+  }
+
+  .belle-repousse-footer__form input {
+    min-width: 0;
+    border: 0;
+    padding: 0 22px;
+    background: transparent;
+    color: #ffffff;
+    font: inherit;
+    font-size: 1rem;
+  }
+
+  .belle-repousse-footer__form input::placeholder {
+    color: rgb(255 255 255 / 0.72);
+    opacity: 1;
+  }
+
+  .belle-repousse-footer__form button {
+    border: 0;
+    background: transparent;
+    color: #ffffff;
+    font: inherit;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  .belle-repousse-footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+    justify-content: center;
+    max-width: 780px;
+    margin: clamp(36px, 6vw, 58px) auto 0;
+  }
+
+  .belle-repousse-footer__nav a {
+    color: rgb(255 255 255 / 0.78);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .belle-repousse-footer__nav a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+
+  .belle-repousse-footer__bottom {
+    display: grid;
+    gap: 8px;
+    margin: 36px auto 0;
+    color: rgb(255 255 255 / 0.55);
+    font-size: 0.82rem;
+  }
+
+  .belle-repousse-footer__bottom p {
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Belle Repousse footer",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Libelle accessibilite",
+      "default": "Pied de page Belle Repousse"
+    },
+    {
+      "type": "text",
+      "id": "brand",
+      "label": "Marque",
+      "default": "Belle Repousse"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre newsletter",
+      "default": "Inscrivez-vous a notre newsletter"
+    },
+    {
+      "type": "text",
+      "id": "copy",
+      "label": "Texte newsletter",
+      "default": "Recevez les offres de lancement, conseils cuir chevelu et nouveautes soin capillaire."
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Placeholder email",
+      "default": "E-mail"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Libelle bouton",
+      "default": "S'inscrire"
+    },
+    {
+      "type": "text",
+      "id": "nav_label",
+      "label": "Libelle navigation",
+      "default": "Liens du pied de page"
+    },
+    {
+      "type": "text",
+      "id": "link_1_label",
+      "label": "Lien 1 libelle",
+      "default": "Conditions generales d'utilisation"
+    },
+    {
+      "type": "url",
+      "id": "link_1_url",
+      "label": "Lien 1 URL",
+      "default": "/pages/conditions-generales-dutilisation"
+    },
+    {
+      "type": "text",
+      "id": "link_2_label",
+      "label": "Lien 2 libelle",
+      "default": "Politique de confidentialite"
+    },
+    {
+      "type": "url",
+      "id": "link_2_url",
+      "label": "Lien 2 URL",
+      "default": "/pages/politique-de-confidentialite"
+    },
+    {
+      "type": "text",
+      "id": "link_3_label",
+      "label": "Lien 3 libelle",
+      "default": "Politique de remboursements"
+    },
+    {
+      "type": "url",
+      "id": "link_3_url",
+      "label": "Lien 3 URL",
+      "default": "/pages/politique-de-remboursements"
+    },
+    {
+      "type": "text",
+      "id": "link_4_label",
+      "label": "Lien 4 libelle",
+      "default": "Contact"
+    },
+    {
+      "type": "url",
+      "id": "link_4_url",
+      "label": "Lien 4 URL",
+      "default": "/pages/contact"
+    },
+    {
+      "type": "text",
+      "id": "link_5_label",
+      "label": "Lien 5 libelle",
+      "default": "Notre histoire"
+    },
+    {
+      "type": "url",
+      "id": "link_5_url",
+      "label": "Lien 5 URL",
+      "default": "/#details-belle-repousse"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Mention",
+      "default": "Accessoire de bien-etre capillaire. Ne remplace pas un avis medical."
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright",
+      "default": "(c) Belle Repousse"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Belle Repousse footer",
+      "category": "Footer"
+    }
+  ]
+}
+{% endschema %}
