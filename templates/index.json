@@ -11,220 +11,67 @@
   "sections": {
     "belle_repousse_landing": {
       "type": "belle-repousse-landing",
-      "name": "Belle Repousse - Accueil",
+      "name": "Belle Repousse - page produit",
       "settings": {
         "featured_product": "brosse-de-massage-cuir-chevelu-led-rouge-630-nm-avec-applicateur-dhuile",
-        "eyebrow": "Soin du cuir chevelu en France",
-        "heading": "Massage, soin capillaire et lumiere rouge dans un seul geste",
-        "lead": "<p>La brosse Belle Repousse aide a masser le cuir chevelu, appliquer une huile capillaire avec precision et installer une routine cheveux simple a la maison.</p>",
-        "primary_button_label": "Decouvrir la brosse",
-        "product_link": "/products/brosse-de-massage-cuir-chevelu-led-rouge-630-nm-avec-applicateur-dhuile",
-        "secondary_button_label": "Voir la collection",
-        "secondary_button_link": "/collections/soins-du-cuir-chevelu",
-        "price_prefix": "Prix : ",
+        "accessibility_label": "Page produit Belle Repousse",
+        "announcement": "Offre de lancement Belle Repousse - routine cuir chevelu a la maison",
+        "gallery_label": "Galerie produit",
         "hero_image_url": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-massage-cuir-chevelu-led-rouge-produit.png?v=1783606387",
         "hero_image_alt": "Brosse de massage du cuir chevelu Belle Repousse avec lumiere rouge 630 nm",
-        "badge_1_title": "72 dents souples",
-        "badge_1_copy": "Un massage confortable pour accompagner votre routine cuir chevelu.",
-        "badge_2_title": "Reservoir 6 ml",
-        "badge_2_copy": "Appliquez huile, serum ou lotion capillaire avec les 8 billes roulantes.",
-        "badge_3_title": "LED rouge 630 nm",
-        "badge_3_copy": "Une fonction lumiere rouge pour completer vos gestes de soin.",
+        "detail_image_1_url": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-massage-cuir-chevelu-huile-capillaire.png?v=1783606413",
+        "detail_image_1_alt": "Applicateur d'huile capillaire integre a la brosse Belle Repousse",
+        "detail_image_2_url": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-led-630nm-massage-cuir-chevelu.png?v=1783606425",
+        "detail_image_2_alt": "Lumiere rouge 630 nm pour routine de massage cuir chevelu",
+        "detail_image_3_url": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-72-dents-8-billes-applicateur-huile.png?v=1783606445",
+        "detail_image_3_alt": "72 dents souples et 8 billes roulantes pour appliquer le soin capillaire",
+        "eyebrow": "Brosse cuir chevelu LED rouge 630 nm",
+        "heading": "Massez, appliquez votre huile et prenez soin des racines en 10 minutes",
+        "lead": "<p>La brosse Belle Repousse combine massage du cuir chevelu, lumiere rouge 630 nm et applicateur d'huile capillaire pour une routine simple, precise et confortable a la maison.</p>",
+        "price_label": "Prix du produit",
+        "fallback_price": "39,90 EUR",
+        "offer_label": "Offre de lancement",
+        "primary_button_label": "Ajouter au panier",
+        "sold_out_label": "Indisponible",
+        "product_link": "/products/brosse-de-massage-cuir-chevelu-led-rouge-630-nm-avec-applicateur-dhuile",
+        "secondary_button_label": "Voir les details",
         "trust_label": "Informations boutique",
-        "trust_item_1": "Prix en EUR",
-        "trust_item_2": "Boutique France",
-        "trust_item_3": "Routine 10 min"
-      }
-    },
-    "product_list_fa6P9H": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h2>Notre routine cuir chevelu</h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h3",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "Voir le produit",
-                "open_in_new_tab": false,
-                "style_class": "button-unstyled",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 8,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 4,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 4,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 8,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": true,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
-      },
-      "name": "Soins du cuir chevelu",
-      "settings": {
-        "collection": "soins-du-cuir-chevelu",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 4,
-        "columns": 1,
-        "mobile_columns": "1",
-        "mobile_card_size": "80cqw",
-        "columns_gap": 12,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "padding-block-start": 48,
-        "padding-block-end": 64
+        "trust_item_1": "Paiement en EUR",
+        "trust_item_2": "Boutique cible France",
+        "trust_item_3": "Routine 10 minutes",
+        "benefit_1_number": "01",
+        "benefit_1_title": "Massage doux du cuir chevelu",
+        "benefit_1_copy": "72 dents rondes massent les zones difficiles a atteindre sans tirer les cheveux.",
+        "benefit_2_number": "02",
+        "benefit_2_title": "Application uniforme de l'huile",
+        "benefit_2_copy": "Le reservoir 6 ml et les 8 billes roulantes repartissent serum, lotion ou huile capillaire au plus pres des racines.",
+        "benefit_3_number": "03",
+        "benefit_3_title": "Lumiere rouge 630 nm",
+        "benefit_3_copy": "Une fonction LED rouge integree accompagne votre rituel de soin cheveux et cuir chevelu.",
+        "routine_eyebrow": "Routine simple",
+        "routine_heading": "Un geste regulier, facile a garder dans la salle de bain",
+        "step_1": "Remplissez le reservoir avec votre huile, serum ou lotion capillaire prefere.",
+        "step_2": "Passez la brosse par raies sur cuir chevelu sec ou legerement humide.",
+        "step_3": "Choisissez un mode de massage et laissez agir pendant la routine de 10 minutes.",
+        "specs_heading": "Details techniques",
+        "spec_1_label": "Materiaux",
+        "spec_1_value": "ABS, PC et silicone",
+        "spec_2_label": "Batterie",
+        "spec_2_value": "Lithium 1400 mAh, charge USB 5 V",
+        "spec_3_label": "Reservoir",
+        "spec_3_value": "6 ml avec 8 billes roulantes",
+        "spec_4_label": "Format",
+        "spec_4_value": "21,2 x 8,5 x 3,5 cm, 233 g",
+        "faq_1_question": "La brosse remplace-t-elle un traitement medical ?",
+        "faq_1_answer": "Non. Elle accompagne une routine cosmetique de massage et d'application de soin capillaire. En cas de chute importante ou de probleme du cuir chevelu, demandez conseil a un professionnel de sante.",
+        "faq_2_question": "Puis-je utiliser mon huile capillaire habituelle ?",
+        "faq_2_answer": "Oui, le reservoir est concu pour distribuer une huile, un serum ou une lotion fluide. Nettoyez le reservoir apres usage pour garder une application propre.",
+        "faq_3_question": "Combien de temps dure une session ?",
+        "faq_3_answer": "La brosse dispose d'un minuteur de 10 minutes, pratique pour garder une routine reguliere sans y penser."
       }
     }
   },
   "order": [
-    "belle_repousse_landing",
-    "product_list_fa6P9H"
+    "belle_repousse_landing"
   ]
 }

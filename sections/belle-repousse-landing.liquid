@@ -1,17 +1,62 @@
-{{ 'section-belle-repousse-landing.css' | asset_url | stylesheet_tag }}
-
 {% liquid
   assign featured_product = section.settings.featured_product
-  assign product_url = section.settings.product_link
+  assign selected_variant = featured_product.selected_or_first_available_variant
+  assign product_available = false
 
-  if featured_product != blank
-    assign product_url = featured_product.url
+  if featured_product != blank and selected_variant != blank and selected_variant.available
+    assign product_available = true
   endif
 %}
 
-<section class="belle-repousse-landing">
-  <div class="page-width belle-repousse-landing__inner">
-    <div class="belle-repousse-landing__content">
+<section class="belle-repousse-landing" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <div class="belle-repousse-landing__announcement">
+    <span>{{ section.settings.announcement | escape }}</span>
+  </div>
+
+  <div class="page-width belle-repousse-landing__hero">
+    <div class="belle-repousse-landing__gallery" aria-label="{{ section.settings.gallery_label | escape }}">
+      <figure class="belle-repousse-landing__main-media">
+        <img
+          src="{{ section.settings.hero_image_url | escape }}"
+          alt="{{ section.settings.hero_image_alt | escape }}"
+          width="1531"
+          height="1027"
+          loading="eager"
+        >
+      </figure>
+
+      <div class="belle-repousse-landing__thumbnails">
+        {% if section.settings.detail_image_1_url != blank %}
+          <img
+            src="{{ section.settings.detail_image_1_url | escape }}"
+            alt="{{ section.settings.detail_image_1_alt | escape }}"
+            width="800"
+            height="800"
+            loading="lazy"
+          >
+        {% endif %}
+        {% if section.settings.detail_image_2_url != blank %}
+          <img
+            src="{{ section.settings.detail_image_2_url | escape }}"
+            alt="{{ section.settings.detail_image_2_alt | escape }}"
+            width="800"
+            height="800"
+            loading="lazy"
+          >
+        {% endif %}
+        {% if section.settings.detail_image_3_url != blank %}
+          <img
+            src="{{ section.settings.detail_image_3_url | escape }}"
+            alt="{{ section.settings.detail_image_3_alt | escape }}"
+            width="800"
+            height="800"
+            loading="lazy"
+          >
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="belle-repousse-landing__panel">
       {% if section.settings.eyebrow != blank %}
         <p class="belle-repousse-landing__eyebrow">{{ section.settings.eyebrow | escape }}</p>
       {% endif %}
@@ -24,63 +69,501 @@
         </div>
       {% endif %}
 
-      <div class="belle-repousse-landing__actions">
-        {% if product_url != blank %}
-          <a class="belle-repousse-landing__button" href="{{ product_url }}">
+      <div class="belle-repousse-landing__price-row" aria-label="{{ section.settings.price_label | escape }}">
+        {% if featured_product != blank %}
+          {% render 'price', product_resource: featured_product, show_sale_price_first: true %}
+        {% else %}
+          <span>{{ section.settings.fallback_price | escape }}</span>
+        {% endif %}
+        <span class="belle-repousse-landing__offer">{{ section.settings.offer_label | escape }}</span>
+      </div>
+
+      <div class="belle-repousse-landing__cta">
+        {% if featured_product != blank and selected_variant != blank %}
+          {% form 'product', featured_product, class: 'belle-repousse-landing__form' %}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ selected_variant.id }}"
+            >
+            <input
+              type="hidden"
+              name="quantity"
+              value="1"
+            >
+            <button
+              class="belle-repousse-landing__button"
+              type="submit"
+              name="add"
+              {% unless product_available %}disabled{% endunless %}
+            >
+              {% if product_available %}
+                {{ section.settings.primary_button_label | escape }}
+              {% else %}
+                {{ section.settings.sold_out_label | escape }}
+              {% endif %}
+            </button>
+          {% endform %}
+        {% elsif section.settings.product_link != blank %}
+          <a class="belle-repousse-landing__button" href="{{ section.settings.product_link }}">
             {{ section.settings.primary_button_label | escape }}
           </a>
         {% endif %}
 
-        {% if section.settings.secondary_button_link != blank %}
-          <a class="belle-repousse-landing__button belle-repousse-landing__button--secondary" href="{{ section.settings.secondary_button_link }}">
-            {{ section.settings.secondary_button_label | escape }}
-          </a>
-        {% endif %}
+        <a class="belle-repousse-landing__button belle-repousse-landing__button--secondary" href="#details-belle-repousse">
+          {{ section.settings.secondary_button_label | escape }}
+        </a>
       </div>
-
-      {% if featured_product != blank %}
-        <div class="belle-repousse-landing__price">
-          {{ section.settings.price_prefix | escape }}
-          {% render 'price', product_resource: featured_product, show_sale_price_first: true %}
-        </div>
-      {% endif %}
 
       <ul class="belle-repousse-landing__trust" aria-label="{{ section.settings.trust_label | escape }}">
-        <li class="belle-repousse-landing__trust-item">{{ section.settings.trust_item_1 | escape }}</li>
-        <li class="belle-repousse-landing__trust-item">{{ section.settings.trust_item_2 | escape }}</li>
-        <li class="belle-repousse-landing__trust-item">{{ section.settings.trust_item_3 | escape }}</li>
+        <li>{{ section.settings.trust_item_1 | escape }}</li>
+        <li>{{ section.settings.trust_item_2 | escape }}</li>
+        <li>{{ section.settings.trust_item_3 | escape }}</li>
       </ul>
     </div>
+  </div>
 
-    <div class="belle-repousse-landing__media">
-      {% if section.settings.hero_image_url != blank %}
-        <img
-          class="belle-repousse-landing__image"
-          src="{{ section.settings.hero_image_url | escape }}"
-          alt="{{ section.settings.hero_image_alt | escape }}"
-          width="1531"
-          height="1027"
-          loading="eager"
-        >
-      {% endif %}
+  <div class="page-width belle-repousse-landing__benefits" id="details-belle-repousse">
+    <article class="belle-repousse-landing__benefit">
+      <span>{{ section.settings.benefit_1_number | escape }}</span>
+      <h2>{{ section.settings.benefit_1_title | escape }}</h2>
+      <p>{{ section.settings.benefit_1_copy | escape }}</p>
+    </article>
+    <article class="belle-repousse-landing__benefit">
+      <span>{{ section.settings.benefit_2_number | escape }}</span>
+      <h2>{{ section.settings.benefit_2_title | escape }}</h2>
+      <p>{{ section.settings.benefit_2_copy | escape }}</p>
+    </article>
+    <article class="belle-repousse-landing__benefit">
+      <span>{{ section.settings.benefit_3_number | escape }}</span>
+      <h2>{{ section.settings.benefit_3_title | escape }}</h2>
+      <p>{{ section.settings.benefit_3_copy | escape }}</p>
+    </article>
+  </div>
 
-      <div class="belle-repousse-landing__badges">
-        <div class="belle-repousse-landing__badge">
-          <p class="belle-repousse-landing__badge-title">{{ section.settings.badge_1_title | escape }}</p>
-          <p class="belle-repousse-landing__badge-copy">{{ section.settings.badge_1_copy | escape }}</p>
+  <div class="page-width belle-repousse-landing__routine">
+    <div>
+      <p class="belle-repousse-landing__eyebrow">{{ section.settings.routine_eyebrow | escape }}</p>
+      <h2>{{ section.settings.routine_heading | escape }}</h2>
+    </div>
+
+    <ol class="belle-repousse-landing__steps">
+      <li>{{ section.settings.step_1 | escape }}</li>
+      <li>{{ section.settings.step_2 | escape }}</li>
+      <li>{{ section.settings.step_3 | escape }}</li>
+    </ol>
+  </div>
+
+  <div class="page-width belle-repousse-landing__details">
+    <div class="belle-repousse-landing__specs">
+      <h2>{{ section.settings.specs_heading | escape }}</h2>
+      <dl>
+        <div>
+          <dt>{{ section.settings.spec_1_label | escape }}</dt>
+          <dd>{{ section.settings.spec_1_value | escape }}</dd>
         </div>
-        <div class="belle-repousse-landing__badge">
-          <p class="belle-repousse-landing__badge-title">{{ section.settings.badge_2_title | escape }}</p>
-          <p class="belle-repousse-landing__badge-copy">{{ section.settings.badge_2_copy | escape }}</p>
+        <div>
+          <dt>{{ section.settings.spec_2_label | escape }}</dt>
+          <dd>{{ section.settings.spec_2_value | escape }}</dd>
         </div>
-        <div class="belle-repousse-landing__badge">
-          <p class="belle-repousse-landing__badge-title">{{ section.settings.badge_3_title | escape }}</p>
-          <p class="belle-repousse-landing__badge-copy">{{ section.settings.badge_3_copy | escape }}</p>
+        <div>
+          <dt>{{ section.settings.spec_3_label | escape }}</dt>
+          <dd>{{ section.settings.spec_3_value | escape }}</dd>
         </div>
-      </div>
+        <div>
+          <dt>{{ section.settings.spec_4_label | escape }}</dt>
+          <dd>{{ section.settings.spec_4_value | escape }}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="belle-repousse-landing__faq">
+      <details open>
+        <summary>{{ section.settings.faq_1_question | escape }}</summary>
+        <p>{{ section.settings.faq_1_answer | escape }}</p>
+      </details>
+      <details>
+        <summary>{{ section.settings.faq_2_question | escape }}</summary>
+        <p>{{ section.settings.faq_2_answer | escape }}</p>
+      </details>
+      <details>
+        <summary>{{ section.settings.faq_3_question | escape }}</summary>
+        <p>{{ section.settings.faq_3_answer | escape }}</p>
+      </details>
     </div>
   </div>
 </section>
+
+{% stylesheet %}
+  .belle-repousse-landing {
+    background: #f8f5f0;
+    color: #201b18;
+  }
+
+  .belle-repousse-landing__announcement {
+    display: flex;
+    min-height: 38px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: #203a32;
+    color: #ffffff;
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .belle-repousse-landing__hero {
+    display: grid;
+    gap: clamp(24px, 5vw, 60px);
+    align-items: center;
+    padding-block: clamp(24px, 6vw, 76px) clamp(36px, 7vw, 88px);
+  }
+
+  @media screen and (min-width: 960px) {
+    .belle-repousse-landing__hero {
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+    }
+  }
+
+  .belle-repousse-landing__gallery {
+    display: grid;
+    gap: 12px;
+  }
+
+  .belle-repousse-landing__main-media {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #eaded4;
+    border-radius: 8px;
+    background: #ffffff;
+  }
+
+  .belle-repousse-landing__main-media img,
+  .belle-repousse-landing__thumbnails img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .belle-repousse-landing__thumbnails {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .belle-repousse-landing__thumbnails img {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid #eaded4;
+    border-radius: 8px;
+    background: #ffffff;
+    object-fit: cover;
+  }
+
+  .belle-repousse-landing__panel {
+    display: grid;
+    gap: 18px;
+    align-content: center;
+  }
+
+  .belle-repousse-landing__eyebrow {
+    margin: 0;
+    color: #9b2028;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .belle-repousse-landing__title {
+    max-width: 760px;
+    margin: 0;
+    font-size: clamp(2.3rem, 5.6vw, 5.4rem);
+    line-height: 0.96;
+  }
+
+  .belle-repousse-landing__lead {
+    max-width: 620px;
+    color: #4d4540;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.65;
+  }
+
+  .belle-repousse-landing__lead p {
+    margin: 0;
+  }
+
+  .belle-repousse-landing__price-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    color: #201b18;
+    font-size: 1.45rem;
+    font-weight: 800;
+  }
+
+  .belle-repousse-landing__offer {
+    border: 1px solid #d9c7b6;
+    border-radius: 999px;
+    padding: 6px 10px;
+    background: #ffffff;
+    color: #203a32;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .belle-repousse-landing__cta {
+    display: grid;
+    gap: 10px;
+  }
+
+  @media screen and (min-width: 560px) {
+    .belle-repousse-landing__cta {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.74fr);
+    }
+  }
+
+  .belle-repousse-landing__form {
+    margin: 0;
+  }
+
+  .belle-repousse-landing__button {
+    display: inline-flex;
+    width: 100%;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #9b2028;
+    border-radius: 6px;
+    padding: 0 20px;
+    background: #9b2028;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 800;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .belle-repousse-landing__button:hover {
+    background: #7f171f;
+  }
+
+  .belle-repousse-landing__button:disabled {
+    border-color: #a99d93;
+    background: #a99d93;
+    cursor: not-allowed;
+  }
+
+  .belle-repousse-landing__button--secondary {
+    border-color: #d6c8bd;
+    background: #ffffff;
+    color: #201b18;
+  }
+
+  .belle-repousse-landing__button--secondary:hover {
+    background: #efe6dc;
+  }
+
+  .belle-repousse-landing__trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .belle-repousse-landing__trust li {
+    border-radius: 999px;
+    padding: 8px 11px;
+    background: #e7eee7;
+    color: #263626;
+    font-size: 0.84rem;
+    font-weight: 700;
+  }
+
+  .belle-repousse-landing__benefits,
+  .belle-repousse-landing__routine,
+  .belle-repousse-landing__details {
+    padding-block: clamp(34px, 6vw, 70px);
+  }
+
+  .belle-repousse-landing__benefits {
+    display: grid;
+    gap: 14px;
+    border-block: 1px solid #e2d4c8;
+  }
+
+  @media screen and (min-width: 760px) {
+    .belle-repousse-landing__benefits {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .belle-repousse-landing__benefit {
+    border: 1px solid #eaded4;
+    border-radius: 8px;
+    padding: clamp(18px, 3vw, 26px);
+    background: #ffffff;
+  }
+
+  .belle-repousse-landing__benefit span {
+    display: inline-flex;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #203a32;
+    color: #ffffff;
+    font-size: 0.84rem;
+    font-weight: 800;
+  }
+
+  .belle-repousse-landing__benefit h2 {
+    margin: 18px 0 8px;
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+  }
+
+  .belle-repousse-landing__benefit p {
+    margin: 0;
+    color: #5c514a;
+    line-height: 1.55;
+  }
+
+  .belle-repousse-landing__routine {
+    display: grid;
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media screen and (min-width: 900px) {
+    .belle-repousse-landing__routine {
+      grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1fr);
+    }
+  }
+
+  .belle-repousse-landing__routine h2,
+  .belle-repousse-landing__specs h2 {
+    margin: 8px 0 0;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    line-height: 1.05;
+  }
+
+  .belle-repousse-landing__steps {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: routine;
+  }
+
+  .belle-repousse-landing__steps li {
+    counter-increment: routine;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    border: 1px solid #e1d3c7;
+    border-radius: 8px;
+    padding: 15px;
+    background: #ffffff;
+    color: #4d4540;
+  }
+
+  .belle-repousse-landing__steps li::before {
+    content: counter(routine);
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #f0ded3;
+    color: #7f171f;
+    font-weight: 800;
+  }
+
+  .belle-repousse-landing__details {
+    display: grid;
+    gap: 24px;
+    background: #ffffff;
+  }
+
+  @media screen and (min-width: 900px) {
+    .belle-repousse-landing__details {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    }
+  }
+
+  .belle-repousse-landing__specs dl {
+    display: grid;
+    gap: 0;
+    margin: 24px 0 0;
+    border-top: 1px solid #e5d8ce;
+  }
+
+  .belle-repousse-landing__specs dl div {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.45fr) minmax(0, 1fr);
+    gap: 14px;
+    border-bottom: 1px solid #e5d8ce;
+    padding: 14px 0;
+  }
+
+  .belle-repousse-landing__specs dt {
+    color: #6a5d55;
+    font-weight: 700;
+  }
+
+  .belle-repousse-landing__specs dd {
+    margin: 0;
+    color: #201b18;
+    font-weight: 700;
+  }
+
+  .belle-repousse-landing__faq {
+    display: grid;
+    gap: 10px;
+  }
+
+  .belle-repousse-landing__faq details {
+    border: 1px solid #e1d3c7;
+    border-radius: 8px;
+    padding: 16px 18px;
+    background: #f8f5f0;
+  }
+
+  .belle-repousse-landing__faq summary {
+    color: #201b18;
+    font-weight: 800;
+  }
+
+  .belle-repousse-landing__faq p {
+    margin: 12px 0 0;
+    color: #5c514a;
+    line-height: 1.55;
+  }
+
+  @media screen and (max-width: 559px) {
+    .belle-repousse-landing__title {
+      font-size: 2.45rem;
+    }
+
+    .belle-repousse-landing__thumbnails {
+      gap: 8px;
+    }
+
+    .belle-repousse-landing__specs dl div {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -97,27 +580,117 @@
     },
     {
       "type": "text",
+      "id": "accessibility_label",
+      "label": "Libelle accessibilite de la section",
+      "default": "Page produit Belle Repousse"
+    },
+    {
+      "type": "text",
+      "id": "announcement",
+      "label": "Barre annonce",
+      "default": "Offre de lancement Belle Repousse - routine cuir chevelu a la maison"
+    },
+    {
+      "type": "text",
+      "id": "gallery_label",
+      "label": "Libelle accessibilite de la galerie",
+      "default": "Galerie produit"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_url",
+      "label": "URL de l'image principale",
+      "default": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-massage-cuir-chevelu-led-rouge-produit.png?v=1783606387"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Texte alternatif de l'image principale",
+      "default": "Brosse de massage du cuir chevelu Belle Repousse avec lumiere rouge 630 nm"
+    },
+    {
+      "type": "text",
+      "id": "detail_image_1_url",
+      "label": "URL image detail 1",
+      "default": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-massage-cuir-chevelu-huile-capillaire.png?v=1783606413"
+    },
+    {
+      "type": "text",
+      "id": "detail_image_1_alt",
+      "label": "Texte alternatif image detail 1",
+      "default": "Applicateur d'huile capillaire integre a la brosse Belle Repousse"
+    },
+    {
+      "type": "text",
+      "id": "detail_image_2_url",
+      "label": "URL image detail 2",
+      "default": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-led-630nm-massage-cuir-chevelu.png?v=1783606425"
+    },
+    {
+      "type": "text",
+      "id": "detail_image_2_alt",
+      "label": "Texte alternatif image detail 2",
+      "default": "Lumiere rouge 630 nm pour routine de massage cuir chevelu"
+    },
+    {
+      "type": "text",
+      "id": "detail_image_3_url",
+      "label": "URL image detail 3",
+      "default": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-72-dents-8-billes-applicateur-huile.png?v=1783606445"
+    },
+    {
+      "type": "text",
+      "id": "detail_image_3_alt",
+      "label": "Texte alternatif image detail 3",
+      "default": "72 dents souples et 8 billes roulantes pour appliquer le soin capillaire"
+    },
+    {
+      "type": "text",
       "id": "eyebrow",
       "label": "Surtitre",
-      "default": "Soin du cuir chevelu en France"
+      "default": "Brosse cuir chevelu LED rouge 630 nm"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Titre principal",
-      "default": "Massage, soin capillaire et lumiere rouge dans un seul geste"
+      "default": "Massez, appliquez votre huile et prenez soin des racines en 10 minutes"
     },
     {
       "type": "richtext",
       "id": "lead",
       "label": "Texte d'introduction",
-      "default": "<p>La brosse Belle Repousse aide a masser le cuir chevelu, appliquer une huile capillaire avec precision et installer une routine cheveux simple a la maison.</p>"
+      "default": "<p>La brosse Belle Repousse combine massage du cuir chevelu, lumiere rouge 630 nm et applicateur d'huile capillaire pour une routine simple, precise et confortable a la maison.</p>"
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "Libelle accessibilite du prix",
+      "default": "Prix du produit"
+    },
+    {
+      "type": "text",
+      "id": "fallback_price",
+      "label": "Prix de secours",
+      "default": "39,90 EUR"
+    },
+    {
+      "type": "text",
+      "id": "offer_label",
+      "label": "Libelle offre",
+      "default": "Offre de lancement"
     },
     {
       "type": "text",
       "id": "primary_button_label",
       "label": "Libelle du bouton principal",
-      "default": "Decouvrir la brosse"
+      "default": "Ajouter au panier"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Libelle rupture",
+      "default": "Indisponible"
     },
     {
       "type": "url",
@@ -129,67 +702,7 @@
       "type": "text",
       "id": "secondary_button_label",
       "label": "Libelle du bouton secondaire",
-      "default": "Voir la collection"
-    },
-    {
-      "type": "url",
-      "id": "secondary_button_link",
-      "label": "Lien du bouton secondaire"
-    },
-    {
-      "type": "text",
-      "id": "price_prefix",
-      "label": "Texte avant le prix",
-      "default": "Prix : "
-    },
-    {
-      "type": "text",
-      "id": "hero_image_url",
-      "label": "URL de l'image principale",
-      "default": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-massage-cuir-chevelu-led-rouge-produit.png?v=1783606387",
-      "info": "Utilisez une URL Shopify CDN pour garder la page rapide."
-    },
-    {
-      "type": "text",
-      "id": "hero_image_alt",
-      "label": "Texte alternatif de l'image",
-      "default": "Brosse de massage du cuir chevelu Belle Repousse avec lumiere rouge 630 nm"
-    },
-    {
-      "type": "text",
-      "id": "badge_1_title",
-      "label": "Titre avantage 1",
-      "default": "72 dents souples"
-    },
-    {
-      "type": "text",
-      "id": "badge_1_copy",
-      "label": "Texte avantage 1",
-      "default": "Un massage confortable pour accompagner votre routine cuir chevelu."
-    },
-    {
-      "type": "text",
-      "id": "badge_2_title",
-      "label": "Titre avantage 2",
-      "default": "Reservoir 6 ml"
-    },
-    {
-      "type": "text",
-      "id": "badge_2_copy",
-      "label": "Texte avantage 2",
-      "default": "Appliquez huile, serum ou lotion capillaire avec les 8 billes roulantes."
-    },
-    {
-      "type": "text",
-      "id": "badge_3_title",
-      "label": "Titre avantage 3",
-      "default": "LED rouge 630 nm"
-    },
-    {
-      "type": "text",
-      "id": "badge_3_copy",
-      "label": "Texte avantage 3",
-      "default": "Une fonction lumiere rouge pour completer vos gestes de soin."
+      "default": "Voir les details"
     },
     {
       "type": "text",
@@ -201,19 +714,193 @@
       "type": "text",
       "id": "trust_item_1",
       "label": "Element de confiance 1",
-      "default": "Prix en EUR"
+      "default": "Paiement en EUR"
     },
     {
       "type": "text",
       "id": "trust_item_2",
       "label": "Element de confiance 2",
-      "default": "Boutique France"
+      "default": "Boutique cible France"
     },
     {
       "type": "text",
       "id": "trust_item_3",
       "label": "Element de confiance 3",
-      "default": "Routine 10 min"
+      "default": "Routine 10 minutes"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_number",
+      "label": "Numero avantage 1",
+      "default": "01"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_title",
+      "label": "Titre avantage 1",
+      "default": "Massage doux du cuir chevelu"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1_copy",
+      "label": "Texte avantage 1",
+      "default": "72 dents rondes massent les zones difficiles a atteindre sans tirer les cheveux."
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_number",
+      "label": "Numero avantage 2",
+      "default": "02"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_title",
+      "label": "Titre avantage 2",
+      "default": "Application uniforme de l'huile"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2_copy",
+      "label": "Texte avantage 2",
+      "default": "Le reservoir 6 ml et les 8 billes roulantes repartissent serum, lotion ou huile capillaire au plus pres des racines."
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_number",
+      "label": "Numero avantage 3",
+      "default": "03"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_title",
+      "label": "Titre avantage 3",
+      "default": "Lumiere rouge 630 nm"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3_copy",
+      "label": "Texte avantage 3",
+      "default": "Une fonction LED rouge integree accompagne votre rituel de soin cheveux et cuir chevelu."
+    },
+    {
+      "type": "text",
+      "id": "routine_eyebrow",
+      "label": "Surtitre routine",
+      "default": "Routine simple"
+    },
+    {
+      "type": "text",
+      "id": "routine_heading",
+      "label": "Titre routine",
+      "default": "Un geste regulier, facile a garder dans la salle de bain"
+    },
+    {
+      "type": "text",
+      "id": "step_1",
+      "label": "Etape 1",
+      "default": "Remplissez le reservoir avec votre huile, serum ou lotion capillaire prefere."
+    },
+    {
+      "type": "text",
+      "id": "step_2",
+      "label": "Etape 2",
+      "default": "Passez la brosse par raies sur cuir chevelu sec ou legerement humide."
+    },
+    {
+      "type": "text",
+      "id": "step_3",
+      "label": "Etape 3",
+      "default": "Choisissez un mode de massage et laissez agir pendant la routine de 10 minutes."
+    },
+    {
+      "type": "text",
+      "id": "specs_heading",
+      "label": "Titre specifications",
+      "default": "Details techniques"
+    },
+    {
+      "type": "text",
+      "id": "spec_1_label",
+      "label": "Specification 1 libelle",
+      "default": "Materiaux"
+    },
+    {
+      "type": "text",
+      "id": "spec_1_value",
+      "label": "Specification 1 valeur",
+      "default": "ABS, PC et silicone"
+    },
+    {
+      "type": "text",
+      "id": "spec_2_label",
+      "label": "Specification 2 libelle",
+      "default": "Batterie"
+    },
+    {
+      "type": "text",
+      "id": "spec_2_value",
+      "label": "Specification 2 valeur",
+      "default": "Lithium 1400 mAh, charge USB 5 V"
+    },
+    {
+      "type": "text",
+      "id": "spec_3_label",
+      "label": "Specification 3 libelle",
+      "default": "Reservoir"
+    },
+    {
+      "type": "text",
+      "id": "spec_3_value",
+      "label": "Specification 3 valeur",
+      "default": "6 ml avec 8 billes roulantes"
+    },
+    {
+      "type": "text",
+      "id": "spec_4_label",
+      "label": "Specification 4 libelle",
+      "default": "Format"
+    },
+    {
+      "type": "text",
+      "id": "spec_4_value",
+      "label": "Specification 4 valeur",
+      "default": "21,2 x 8,5 x 3,5 cm, 233 g"
+    },
+    {
+      "type": "text",
+      "id": "faq_1_question",
+      "label": "Question FAQ 1",
+      "default": "La brosse remplace-t-elle un traitement medical ?"
+    },
+    {
+      "type": "text",
+      "id": "faq_1_answer",
+      "label": "Reponse FAQ 1",
+      "default": "Non. Elle accompagne une routine cosmetique de massage et d'application de soin capillaire. En cas de chute importante ou de probleme du cuir chevelu, demandez conseil a un professionnel de sante."
+    },
+    {
+      "type": "text",
+      "id": "faq_2_question",
+      "label": "Question FAQ 2",
+      "default": "Puis-je utiliser mon huile capillaire habituelle ?"
+    },
+    {
+      "type": "text",
+      "id": "faq_2_answer",
+      "label": "Reponse FAQ 2",
+      "default": "Oui, le reservoir est concu pour distribuer une huile, un serum ou une lotion fluide. Nettoyez le reservoir apres usage pour garder une application propre."
+    },
+    {
+      "type": "text",
+      "id": "faq_3_question",
+      "label": "Question FAQ 3",
+      "default": "Combien de temps dure une session ?"
+    },
+    {
+      "type": "text",
+      "id": "faq_3_answer",
+      "label": "Reponse FAQ 3",
+      "default": "La brosse dispose d'un minuteur de 10 minutes, pratique pour garder une routine reguliere sans y penser."
     }
   ],
   "presets": [
