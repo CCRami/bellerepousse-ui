@@ -15,10 +15,10 @@
     "type_subheading_font": "inter_n5",
     "type_heading_font": "inter_n7",
     "type_accent_font": "inter_n7",
-    "type_size_paragraph": "14",
+    "type_size_paragraph": "16",
     "type_line_height_paragraph": "body-loose",
     "type_font_h1": "heading",
-    "type_size_h1": "56",
+    "type_size_h1": "64",
     "type_line_height_h1": "display-tight",
     "type_letter_spacing_h1": "heading-normal",
     "type_case_h1": "none",
@@ -49,9 +49,9 @@
     "badge_corner_radius": 100,
     "badge_text_transform": "none",
     "primary_button_border_width": 0,
-    "button_border_radius_primary": 14,
+    "button_border_radius_primary": 12,
     "secondary_button_border_width": 1,
-    "button_border_radius_secondary": 14,
+    "button_border_radius_secondary": 12,
     "button_font_weight_secondary": "default",
     "cart_type": "drawer",
     "cart_price_font": "subheading",
@@ -65,8 +65,8 @@
     "currency_code_enabled_product_pages": false,
     "currency_code_enabled_product_cards": false,
     "currency_code_enabled_cart_items": false,
-    "product_corner_radius": 0,
-    "card_corner_radius": 4,
+    "product_corner_radius": 6,
+    "card_corner_radius": 6,
     "show_variant_image": false,
     "variant_swatch_width": 34,
     "variant_swatch_height": 34,
@@ -79,11 +79,11 @@
     "palette_input_border": "{{ settings.color_palette.color3 }}",
     "palette_variant_border": "{{ settings.color_palette.color3 }}",
     "color_palette": {
-      "background": "#ffffff",
-      "foreground": "#000000",
-      "color1": "#333333",
-      "color2": "#EEF1EA",
-      "color3": "#DFDFDF"
+      "background": "#F8F5F0",
+      "foreground": "#201B18",
+      "color1": "#8D1D22",
+      "color2": "#E7EEE7",
+      "color3": "#D6C8BD"
     }
   },
   "presets": {
@@ -92,11 +92,11 @@
       "palette_input_border": "{{ settings.color_palette.color3 }}",
       "palette_variant_border": "{{ settings.color_palette.color3 }}",
       "color_palette": {
-        "background": "#ffffff",
-        "foreground": "#000000",
-        "color1": "#333333",
-        "color2": "#EEF1EA",
-        "color3": "#DFDFDF"
+        "background": "#F8F5F0",
+        "foreground": "#201B18",
+        "color1": "#8D1D22",
+        "color2": "#E7EEE7",
+        "color3": "#D6C8BD"
       }
     }
   }

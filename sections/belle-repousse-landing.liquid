@@ -1,0 +1,226 @@
+{{ 'section-belle-repousse-landing.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign featured_product = section.settings.featured_product
+  assign product_url = section.settings.product_link
+
+  if featured_product != blank
+    assign product_url = featured_product.url
+  endif
+%}
+
+<section class="belle-repousse-landing">
+  <div class="page-width belle-repousse-landing__inner">
+    <div class="belle-repousse-landing__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="belle-repousse-landing__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      <h1 class="belle-repousse-landing__title">{{ section.settings.heading | escape }}</h1>
+
+      {% if section.settings.lead != blank %}
+        <div class="belle-repousse-landing__lead">
+          {{ section.settings.lead }}
+        </div>
+      {% endif %}
+
+      <div class="belle-repousse-landing__actions">
+        {% if product_url != blank %}
+          <a class="belle-repousse-landing__button" href="{{ product_url }}">
+            {{ section.settings.primary_button_label | escape }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_button_link != blank %}
+          <a class="belle-repousse-landing__button belle-repousse-landing__button--secondary" href="{{ section.settings.secondary_button_link }}">
+            {{ section.settings.secondary_button_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% if featured_product != blank %}
+        <div class="belle-repousse-landing__price">
+          {{ section.settings.price_prefix | escape }}
+          {% render 'price', product_resource: featured_product, show_sale_price_first: true %}
+        </div>
+      {% endif %}
+
+      <ul class="belle-repousse-landing__trust" aria-label="{{ section.settings.trust_label | escape }}">
+        <li class="belle-repousse-landing__trust-item">{{ section.settings.trust_item_1 | escape }}</li>
+        <li class="belle-repousse-landing__trust-item">{{ section.settings.trust_item_2 | escape }}</li>
+        <li class="belle-repousse-landing__trust-item">{{ section.settings.trust_item_3 | escape }}</li>
+      </ul>
+    </div>
+
+    <div class="belle-repousse-landing__media">
+      {% if section.settings.hero_image_url != blank %}
+        <img
+          class="belle-repousse-landing__image"
+          src="{{ section.settings.hero_image_url | escape }}"
+          alt="{{ section.settings.hero_image_alt | escape }}"
+          width="1531"
+          height="1027"
+          loading="eager"
+        >
+      {% endif %}
+
+      <div class="belle-repousse-landing__badges">
+        <div class="belle-repousse-landing__badge">
+          <p class="belle-repousse-landing__badge-title">{{ section.settings.badge_1_title | escape }}</p>
+          <p class="belle-repousse-landing__badge-copy">{{ section.settings.badge_1_copy | escape }}</p>
+        </div>
+        <div class="belle-repousse-landing__badge">
+          <p class="belle-repousse-landing__badge-title">{{ section.settings.badge_2_title | escape }}</p>
+          <p class="belle-repousse-landing__badge-copy">{{ section.settings.badge_2_copy | escape }}</p>
+        </div>
+        <div class="belle-repousse-landing__badge">
+          <p class="belle-repousse-landing__badge-title">{{ section.settings.badge_3_title | escape }}</p>
+          <p class="belle-repousse-landing__badge-copy">{{ section.settings.badge_3_copy | escape }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Belle Repousse landing",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Produit mis en avant",
+      "info": "Choisissez le produit principal de la boutique."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Surtitre",
+      "default": "Soin du cuir chevelu en France"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre principal",
+      "default": "Massage, soin capillaire et lumiere rouge dans un seul geste"
+    },
+    {
+      "type": "richtext",
+      "id": "lead",
+      "label": "Texte d'introduction",
+      "default": "<p>La brosse Belle Repousse aide a masser le cuir chevelu, appliquer une huile capillaire avec precision et installer une routine cheveux simple a la maison.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Libelle du bouton principal",
+      "default": "Decouvrir la brosse"
+    },
+    {
+      "type": "url",
+      "id": "product_link",
+      "label": "Lien de secours du bouton",
+      "info": "Utilise seulement si aucun produit n'est selectionne."
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Libelle du bouton secondaire",
+      "default": "Voir la collection"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Lien du bouton secondaire"
+    },
+    {
+      "type": "text",
+      "id": "price_prefix",
+      "label": "Texte avant le prix",
+      "default": "Prix : "
+    },
+    {
+      "type": "text",
+      "id": "hero_image_url",
+      "label": "URL de l'image principale",
+      "default": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-massage-cuir-chevelu-led-rouge-produit.png?v=1783606387",
+      "info": "Utilisez une URL Shopify CDN pour garder la page rapide."
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Texte alternatif de l'image",
+      "default": "Brosse de massage du cuir chevelu Belle Repousse avec lumiere rouge 630 nm"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_title",
+      "label": "Titre avantage 1",
+      "default": "72 dents souples"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_copy",
+      "label": "Texte avantage 1",
+      "default": "Un massage confortable pour accompagner votre routine cuir chevelu."
+    },
+    {
+      "type": "text",
+      "id": "badge_2_title",
+      "label": "Titre avantage 2",
+      "default": "Reservoir 6 ml"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_copy",
+      "label": "Texte avantage 2",
+      "default": "Appliquez huile, serum ou lotion capillaire avec les 8 billes roulantes."
+    },
+    {
+      "type": "text",
+      "id": "badge_3_title",
+      "label": "Titre avantage 3",
+      "default": "LED rouge 630 nm"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_copy",
+      "label": "Texte avantage 3",
+      "default": "Une fonction lumiere rouge pour completer vos gestes de soin."
+    },
+    {
+      "type": "text",
+      "id": "trust_label",
+      "label": "Libelle accessibilite des garanties",
+      "default": "Informations boutique"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_1",
+      "label": "Element de confiance 1",
+      "default": "Prix en EUR"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_2",
+      "label": "Element de confiance 2",
+      "default": "Boutique France"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_3",
+      "label": "Element de confiance 3",
+      "default": "Routine 10 min"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Belle Repousse landing",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

@@ -216,6 +216,31 @@
               },
               "block_order": []
             },
+            "text_belle_repousse_benefits": {
+              "type": "text",
+              "name": "Routine Belle Repousse",
+              "settings": {
+                "text": "<p><strong>Routine conseillee:</strong> utilisez la brosse quelques minutes sur cuir chevelu sec ou avec votre huile capillaire. Les 8 billes roulantes aident a repartir le soin pendant que les dents souples massent les racines.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-primary--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": true,
+                "background_color": "#F8F5F0",
+                "corner_radius": 4,
+                "padding-block-start": 16,
+                "padding-block-end": 16,
+                "padding-inline-start": 16,
+                "padding-inline-end": 16
+              },
+              "blocks": {}
+            },
             "text_aEtTtq": {
               "type": "text",
               "name": "Product description",
@@ -247,6 +272,7 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
+            "text_belle_repousse_benefits",
             "text_aEtTtq"
           ]
         },
@@ -268,6 +294,7 @@
         "equal_columns": false,
         "limit_details_width": false,
         "gap": 48,
+        "enable_sticky_add_to_cart": true,
         "padding-block-start": 0,
         "padding-block-end": 0
       }
@@ -409,7 +436,6 @@
     }
   },
   "order": [
-    "main",
-    "product_recommendations_qggXJq"
+    "main"
   ]
 }
