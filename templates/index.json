@@ -1,5 +1,9 @@
 {
   "sections": {
+    "belle_repousse_home_header": {
+      "type": "belle-repousse-home-header",
+      "name": "Belle Repousse - en-tête accueil"
+    },
     "belle_repousse_home_v2": {
       "type": "belle-repousse-home-v2",
       "name": "Belle Repousse - accueil",
@@ -9,5 +13,5 @@
       }
     }
   },
-  "order": ["belle_repousse_home_v2"]
+  "order": ["belle_repousse_home_header", "belle_repousse_home_v2"]
 }

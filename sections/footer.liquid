@@ -4,6 +4,28 @@
   endif
 %}
 
+{{ 'belle-repousse-chrome.css' | asset_url | stylesheet_tag }}
+
+<div class="br-site-footer br-live-footer-fallback">
+  <div class="br-site-footer__inner">
+    <div class="br-site-footer__newsletter">
+      <p class="br-site-footer__brand">Belle Repousse</p>
+      <h2>Une routine qui commence par les racines</h2>
+      <p>Recevez des conseils pour votre routine cuir chevelu et des nouvelles de Belle Repousse.</p>
+      {% form 'customer', class: 'br-site-footer__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label class="visually-hidden" for="BrLiveFooterEmail">Votre e-mail</label>
+        <input id="BrLiveFooterEmail" type="email" name="contact[email]" placeholder="Votre e-mail" autocomplete="email" required>
+        <button type="submit" aria-label="S'inscrire à la newsletter">→</button>
+      {% endform %}
+    </div>
+    <nav class="br-site-footer__links" aria-label="Liens utiles">
+      <a href="/pages/a-propos">À propos</a><a href="/pages/faq">FAQ</a><a href="/pages/politique-de-livraison">Livraison</a><a href="/pages/conditions-generales-dutilisation">Conditions générales</a><a href="/pages/politique-de-confidentialite">Confidentialité</a><a href="/pages/politique-de-remboursements">Remboursements</a><a href="/pages/contact">Contact</a>
+    </nav>
+    <div class="br-site-footer__bottom"><span>Accessoire de bien-être et de soin capillaire.</span><span>© {{ 'now' | date: '%Y' }} Belle Repousse</span></div>
+  </div>
+</div>
+
 <div
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
 ></div>
@@ -64,6 +86,16 @@
 
   .footer-content .menu__heading__default {
     font-weight: var(--font-heading--weight);
+  }
+
+  .br-live-footer-fallback ~ .section-background,
+  .br-live-footer-fallback ~ .section,
+  footer:has(.br-live-footer-fallback) .footer-utilities {
+    display: none;
+  }
+
+  footer:has(.br-live-footer-fallback) {
+    display: block !important;
   }
 
   @media screen and (min-width: 750px) and (max-width: 989px) {

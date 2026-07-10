@@ -1,0 +1,23 @@
+{{ 'belle-repousse-chrome.css' | asset_url | stylesheet_tag }}
+
+<div class="br-site-header br-site-chrome" role="banner">
+  <div class="br-site-header__inner">
+    <a class="br-site-header__brand" href="{{ routes.root_url }}" aria-label="Belle Repousse - Accueil">Belle Repousse</a>
+    <nav class="br-site-header__nav" aria-label="Navigation principale">
+      <a href="{{ routes.root_url }}#produit">Le produit</a>
+      <a href="{{ routes.root_url }}#bienfaits">Bienfaits</a>
+      <a href="{{ routes.root_url }}#utilisation">Utilisation</a>
+      <a href="{{ pages['faq'].url | default: '/pages/faq' }}">FAQ</a>
+      <a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
+    </nav>
+    <a class="br-site-header__cart" href="{{ routes.cart_url }}" aria-label="Panier, {{ cart.item_count }} article(s)">Panier <span>{{ cart.item_count }}</span></a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "En-tête Belle Repousse",
+  "enabled_on": {"templates": ["index"]},
+  "presets": [{"name": "En-tête Belle Repousse"}]
+}
+{% endschema %}
