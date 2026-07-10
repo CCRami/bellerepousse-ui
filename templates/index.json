@@ -1,6 +1,6 @@
 {
   "sections": {
-    "belle_repousse_home": {
+    "belle_repousse_home_v2": {
       "type": "belle-repousse-home",
       "name": "Belle Repousse - accueil",
       "settings": {
@@ -8,5 +8,5 @@
       }
     }
   },
-  "order": ["belle_repousse_home"]
+  "order": ["belle_repousse_home_v2"]
 }
