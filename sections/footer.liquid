@@ -90,8 +90,9 @@
 
   .br-live-footer-fallback ~ .section-background,
   .br-live-footer-fallback ~ .section,
+  footer:has(.br-live-footer-fallback) .footer-content,
   footer:has(.br-live-footer-fallback) .footer-utilities {
-    display: none;
+    display: none !important;
   }
 
   footer:has(.br-live-footer-fallback) {

@@ -79,6 +79,53 @@
   .belle-repousse-page__content strong {
     color: #211516;
   }
+
+  .belle-repousse-page__content details {
+    margin: 0 0 12px;
+    border: 1px solid #e2c6be;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .belle-repousse-page__content summary {
+    display: flex;
+    min-height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 16px 20px;
+    color: #211516;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .belle-repousse-page__content summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .belle-repousse-page__content summary::after {
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #a51f2a;
+    color: #fff;
+    content: '+';
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .belle-repousse-page__content details[open] summary::after {
+    content: '−';
+  }
+
+  .belle-repousse-page__content details > div {
+    padding: 0 20px 18px;
+  }
 {% endstylesheet %}
 
 {% schema %}

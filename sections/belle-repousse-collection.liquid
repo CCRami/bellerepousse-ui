@@ -1,0 +1,146 @@
+{% liquid
+  assign collection_product = collection.products.first
+  if collection_product == blank
+    assign collection_product = all_products['brosse-de-massage-cuir-chevelu-led-rouge-630-nm-avec-applicateur-dhuile']
+  endif
+%}
+
+{% render 'belle-repousse-site-chrome' %}
+
+<section class="belle-repousse-collection">
+  <div class="page-width belle-repousse-collection__inner">
+    <p class="belle-repousse-collection__eyebrow">Soin du cuir chevelu</p>
+    <h1>{{ collection.title | default: 'La brosse Belle Repousse' | escape }}</h1>
+    <p class="belle-repousse-collection__intro">
+      Découvrez notre brosse de massage cuir chevelu, conçue pour accompagner une routine cheveux simple à la maison.
+    </p>
+
+    {% if collection_product != blank %}
+      <article class="belle-repousse-collection__product">
+        {% if collection_product.featured_image != blank %}
+          <a href="{{ collection_product.url }}" aria-label="Découvrir {{ collection_product.title | escape }}">
+            {{ collection_product.featured_image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', sizes: '(min-width: 900px) 50vw, 100vw', loading: 'eager', alt: collection_product.featured_image.alt | default: collection_product.title }}
+          </a>
+        {% endif %}
+        <div class="belle-repousse-collection__product-copy">
+          <p class="belle-repousse-collection__eyebrow">Le produit Belle Repousse</p>
+          <h2><a href="{{ collection_product.url }}">{{ collection_product.title | escape }}</a></h2>
+          <div class="belle-repousse-collection__price">{{ collection_product.price | money }}</div>
+          <a class="belle-repousse-collection__button" href="{{ collection_product.url }}">Découvrir la brosse</a>
+        </div>
+      </article>
+    {% else %}
+      <a class="belle-repousse-collection__button" href="{{ routes.root_url }}">Retour à l'accueil</a>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .belle-repousse-collection {
+    min-height: 70svh;
+    background: #fbf2ee;
+    color: #211516;
+  }
+
+  .belle-repousse-collection__inner {
+    box-sizing: border-box;
+    width: min(100%, 1240px);
+    padding: clamp(46px, 8vw, 110px) clamp(18px, 5vw, 72px);
+  }
+
+  .belle-repousse-collection__eyebrow {
+    margin: 0 0 12px;
+    color: #9b2028;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .belle-repousse-collection h1 {
+    max-width: 780px;
+    margin: 0;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    line-height: 0.96;
+  }
+
+  .belle-repousse-collection__intro {
+    max-width: 620px;
+    margin: 24px 0 0;
+    color: #5d4245;
+    font-size: 1.1rem;
+    line-height: 1.65;
+  }
+
+  .belle-repousse-collection__product {
+    display: grid;
+    gap: clamp(24px, 5vw, 64px);
+    align-items: center;
+    margin-top: clamp(42px, 7vw, 90px);
+    padding-top: clamp(30px, 5vw, 56px);
+    border-top: 1px solid #ead0c5;
+  }
+
+  @media screen and (min-width: 800px) {
+    .belle-repousse-collection__product {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+    }
+  }
+
+  .belle-repousse-collection__product img {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  .belle-repousse-collection__product-copy {
+    display: grid;
+    gap: 16px;
+  }
+
+  .belle-repousse-collection__product-copy h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.02;
+  }
+
+  .belle-repousse-collection__product-copy h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .belle-repousse-collection__price {
+    color: #9b2028;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .belle-repousse-collection__button {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 0 24px;
+    background: #9b2028;
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Belle Repousse collection",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Belle Repousse collection"
+    }
+  ]
+}
+{% endschema %}

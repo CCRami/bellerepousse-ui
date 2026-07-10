@@ -9,9 +9,16 @@
     assign product_available = true
   endif
   assign editorial_image = featured_product.images[1]
+  assign hero_image_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-led-rouge-produit.png?v=1783683601'
+  assign gallery_image_1_url = hero_image_url
+  assign gallery_image_2_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-3-bienfaits-cuir-chevelu.png?v=1783683563'
+  assign gallery_image_3_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-led-630nm-massage-cuir-chevelu_389733e7-5485-4844-9a74-222337be7a25.png?v=1783683576'
+  assign gallery_image_4_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-3-modes-massage-cuir-chevelu.png?v=1783683589'
+  assign gallery_image_5_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-rituel-huile-capillaire.png?v=1783683612'
 %}
 
 {{ 'belle-repousse-home.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'belle-repousse-gallery.js' | asset_url }}" defer></script>
 
 <section class="br-home" aria-label="{{ section.settings.accessibility_label | escape }}">
   <div class="br-site-header br-site-chrome" role="banner">
@@ -26,22 +33,50 @@
 
   <div class="br-home__announcement">{{ section.settings.announcement | escape }}</div>
 
+  <div class="br-home__hero-banner">
+    <img
+      src="{{ hero_image_url }}"
+      alt="Brosse Belle Repousse de massage du cuir chevelu avec lumière rouge"
+      width="1600"
+      height="1000"
+      loading="eager"
+    >
+    <div class="br-home__hero-banner-copy">
+      <p class="br-eyebrow">Belle Repousse</p>
+      <h2>Le rituel soin du cuir chevelu, à la maison</h2>
+    </div>
+  </div>
+
   <div class="br-shell br-home__hero" id="produit">
-    <div class="br-home__gallery">
+    <div class="br-home__gallery" data-br-gallery>
       <div class="br-home__main-media">
-        {% if featured_product.featured_image != blank %}
-          {{ featured_product.featured_image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 58vw, 100vw', loading: 'eager', class: 'br-home__main-image', alt: featured_product.featured_image.alt | default: section.settings.gallery_alt }}
-        {% else %}
-          {{ 'product-1' | placeholder_svg_tag: 'br-home__main-image' }}
-        {% endif %}
+        <img
+          id="BelleRepousseHome-main"
+          class="br-home__main-image"
+          src="{{ gallery_image_1_url }}"
+          alt="Brosse Belle Repousse de massage du cuir chevelu"
+          width="1600"
+          height="1000"
+          loading="eager"
+        >
       </div>
 
       <div class="br-home__thumbs" aria-label="{{ section.settings.gallery_label | escape }}">
-        {% for image in featured_product.images limit: 6 %}
-          <a href="{{ image | image_url: width: 1600 }}" class="br-home__thumb">
-            {{ image | image_url: width: 420 | image_tag: widths: '210, 420', sizes: '16vw', loading: 'lazy', alt: image.alt | default: section.settings.gallery_alt }}
-          </a>
-        {% endfor %}
+        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_1_url }}" data-br-gallery-alt="Brosse Belle Repousse de massage du cuir chevelu" aria-label="Afficher la photo principale" aria-pressed="true">
+          <img src="{{ gallery_image_1_url }}" alt="" width="420" height="263" loading="lazy">
+        </button>
+        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_2_url }}" data-br-gallery-alt="Trois bienfaits du massage du cuir chevelu" aria-label="Afficher les bienfaits du massage" aria-pressed="false">
+          <img src="{{ gallery_image_2_url }}" alt="" width="420" height="420" loading="lazy">
+        </button>
+        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_3_url }}" data-br-gallery-alt="Soin ciblé du cuir chevelu avec lumière rouge 630 nm" aria-label="Afficher le soin LED rouge" aria-pressed="false">
+          <img src="{{ gallery_image_3_url }}" alt="" width="420" height="420" loading="lazy">
+        </button>
+        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_4_url }}" data-br-gallery-alt="Trois modes de massage du cuir chevelu" aria-label="Afficher les modes de massage" aria-pressed="false">
+          <img src="{{ gallery_image_4_url }}" alt="" width="420" height="420" loading="lazy">
+        </button>
+        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_5_url }}" data-br-gallery-alt="Rituel d'application d'huile capillaire" aria-label="Afficher le rituel avec huile capillaire" aria-pressed="false">
+          <img src="{{ gallery_image_5_url }}" alt="" width="420" height="420" loading="lazy">
+        </button>
       </div>
     </div>
 
@@ -156,25 +191,6 @@
     <a class="br-button br-button--primary" href="#produit">{{ section.settings.closing_button | escape }}</a>
   </div>
 
-  <div class="br-site-footer br-site-chrome" role="contentinfo">
-    <div class="br-site-footer__inner">
-      <div class="br-site-footer__newsletter">
-        <p class="br-site-footer__brand">Belle Repousse</p>
-        <h2>Une routine qui commence par les racines</h2>
-        <p>Recevez des conseils pour votre routine cuir chevelu et des nouvelles de Belle Repousse.</p>
-        {% form 'customer', class: 'br-site-footer__form' %}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <label class="visually-hidden" for="BrHomeEmail">Votre e-mail</label>
-          <input id="BrHomeEmail" type="email" name="contact[email]" placeholder="Votre e-mail" autocomplete="email" required>
-          <button type="submit" aria-label="S'inscrire à la newsletter">→</button>
-        {% endform %}
-      </div>
-      <nav class="br-site-footer__links" aria-label="Liens utiles">
-        <a href="/pages/a-propos">À propos</a><a href="/pages/faq">FAQ</a><a href="/pages/politique-de-livraison">Livraison</a><a href="/pages/conditions-generales-dutilisation">Conditions générales</a><a href="/pages/politique-de-confidentialite">Confidentialité</a><a href="/pages/politique-de-remboursements">Remboursements</a><a href="/pages/contact">Contact</a>
-      </nav>
-      <div class="br-site-footer__bottom"><span>Accessoire de bien-être et de soin capillaire.</span><span>© {{ 'now' | date: '%Y' }} Belle Repousse</span></div>
-    </div>
-  </div>
 </section>
 
 {% schema %}
