@@ -17,7 +17,7 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "Livraison suivie offerte en France",
+            "text": "Livraison suivie offerte en France · 7 à 12 jours ouvrés",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "0.75rem",

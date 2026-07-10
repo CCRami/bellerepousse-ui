@@ -13,7 +13,7 @@
   "sections": {
     "belle_repousse_footer": {
       "type": "belle-repousse-footer",
-      "name": "Belle Repousse - Footer",
+      "name": "Belle Repousse - pied de page",
       "settings": {
         "accessibility_label": "Pied de page Belle Repousse",
         "brand": "Belle Repousse",
