@@ -1,11 +1,7 @@
 {
   "sections": {
-    "belle_repousse_home_header": {
-      "type": "belle-repousse-home-header",
-      "name": "Belle Repousse - en-tête accueil"
-    },
-    "belle_repousse_home_v2": {
-      "type": "belle-repousse-home-v2",
+    "belle_repousse_home": {
+      "type": "belle-repousse-home",
       "name": "Belle Repousse - accueil",
       "settings": {
         "featured_product": "brosse-de-massage-cuir-chevelu-led-rouge-630-nm-avec-applicateur-dhuile",
@@ -13,5 +9,5 @@
       }
     }
   },
-  "order": ["belle_repousse_home_header", "belle_repousse_home_v2"]
+  "order": ["belle_repousse_home"]
 }
