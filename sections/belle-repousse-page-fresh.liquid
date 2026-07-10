@@ -1,0 +1,152 @@
+<section class="belle-repousse-page" aria-label="{{ page.title | escape }}">
+  {% render 'belle-repousse-site-chrome' %}
+
+  <div class="page-width belle-repousse-page__inner">
+    <header class="belle-repousse-page__header">
+      <p>{{ section.settings.eyebrow | escape }}</p>
+      <h1>{{ page.title | escape }}</h1>
+    </header>
+
+    <div class="belle-repousse-page__content rte">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .belle-repousse-page {
+    background: #fbf2ee;
+    color: #211516;
+  }
+
+  .belle-repousse-page__inner {
+    box-sizing: border-box;
+    width: min(100%, 1080px);
+    padding: clamp(42px, 7vw, 88px) clamp(18px, 4vw, 48px);
+  }
+
+  .belle-repousse-page__header {
+    border-bottom: 1px solid #ead0c5;
+    padding-bottom: clamp(22px, 4vw, 38px);
+  }
+
+  .belle-repousse-page__header p {
+    margin: 0 0 12px;
+    color: #9b2028;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .belle-repousse-page__header h1 {
+    max-width: 860px;
+    margin: 0;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    line-height: 1;
+  }
+
+  .belle-repousse-page__content {
+    max-width: 820px;
+    margin-top: clamp(28px, 5vw, 54px);
+    color: #4d3537;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .belle-repousse-page__content h2 {
+    margin: 2em 0 0.5em;
+    color: #211516;
+    font-size: clamp(1.45rem, 2.4vw, 2rem);
+    line-height: 1.15;
+  }
+
+  .belle-repousse-page__content h2:first-child {
+    margin-top: 0;
+  }
+
+  .belle-repousse-page__content p,
+  .belle-repousse-page__content ul,
+  .belle-repousse-page__content ol {
+    margin-block: 0 1em;
+  }
+
+  .belle-repousse-page__content a {
+    color: #9b2028;
+    font-weight: 800;
+  }
+
+  .belle-repousse-page__content strong {
+    color: #211516;
+  }
+
+  .belle-repousse-page__content details {
+    margin: 0 0 12px;
+    border: 1px solid #e2c6be;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .belle-repousse-page__content summary {
+    display: flex;
+    min-height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 16px 20px;
+    color: #211516;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .belle-repousse-page__content summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .belle-repousse-page__content summary::after {
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #a51f2a;
+    color: #fff;
+    content: '+';
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .belle-repousse-page__content details[open] summary::after {
+    content: '−';
+  }
+
+  .belle-repousse-page__content details > div {
+    padding: 0 20px 18px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Belle Repousse page",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Surtitre",
+      "default": "Belle Repousse"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Belle Repousse page",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

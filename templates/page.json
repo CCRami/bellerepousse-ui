@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "belle-repousse-page",
+      "type": "belle-repousse-page-fresh",
       "name": "Belle Repousse - Page",
       "settings": {
         "eyebrow": "Belle Repousse"

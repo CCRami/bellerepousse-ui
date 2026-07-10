@@ -1,0 +1,341 @@
+{% render 'belle-repousse-site-chrome' %}
+
+<section class="belle-repousse-contact" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <div class="page-width belle-repousse-contact__inner">
+    <div class="belle-repousse-contact__intro">
+      <p class="belle-repousse-contact__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h1>{{ section.settings.heading | escape }}</h1>
+      <div class="belle-repousse-contact__copy">
+        {{ section.settings.copy }}
+      </div>
+      <ul class="belle-repousse-contact__notes" aria-label="{{ section.settings.notes_label | escape }}">
+        <li>{{ section.settings.note_1 | escape }}</li>
+        <li>{{ section.settings.note_2 | escape }}</li>
+        <li>{{ section.settings.note_3 | escape }}</li>
+      </ul>
+    </div>
+
+    <div class="belle-repousse-contact__card">
+      {% form 'contact', class: 'belle-repousse-contact__form' %}
+        {% if form.posted_successfully? %}
+          <p class="belle-repousse-contact__success" tabindex="-1" autofocus>
+            {{ section.settings.success_message | escape }}
+          </p>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="belle-repousse-contact__error" tabindex="-1" autofocus>
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="belle-repousse-contact__row">
+          <label class="visually-hidden" for="BelleRepousseContact-name">
+            {{ section.settings.name_label | escape }}
+          </label>
+          <input
+            id="BelleRepousseContact-name"
+            type="text"
+            name="contact[name]"
+            autocomplete="name"
+            value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            placeholder="{{ section.settings.name_label | escape }}"
+          >
+
+          <label class="visually-hidden" for="BelleRepousseContact-email">
+            {{ section.settings.email_label | escape }}
+          </label>
+          <input
+            id="BelleRepousseContact-email"
+            type="email"
+            name="contact[email]"
+            autocomplete="email"
+            autocapitalize="off"
+            spellcheck="false"
+            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            placeholder="{{ section.settings.email_label | escape }}"
+            required
+          >
+        </div>
+
+        <label class="visually-hidden" for="BelleRepousseContact-phone">
+          {{ section.settings.phone_label | escape }}
+        </label>
+        <input
+          id="BelleRepousseContact-phone"
+          type="tel"
+          name="contact[phone]"
+          autocomplete="tel"
+          value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+          placeholder="{{ section.settings.phone_label | escape }}"
+        >
+
+        <label class="visually-hidden" for="BelleRepousseContact-body">
+          {{ section.settings.message_label | escape }}
+        </label>
+        <textarea
+          id="BelleRepousseContact-body"
+          name="contact[body]"
+          rows="7"
+          placeholder="{{ section.settings.message_label | escape }}"
+        >{{ form.body }}</textarea>
+
+        <button class="belle-repousse-contact__button" type="submit">
+          {{ section.settings.button_label | escape }}
+        </button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .belle-repousse-contact {
+    min-height: 70svh;
+    background: #fbdbd5;
+    color: #211516;
+  }
+
+  .belle-repousse-contact__inner {
+    box-sizing: border-box;
+    display: grid;
+    justify-items: center;
+    width: min(100%, 1240px);
+    padding: clamp(40px, 7vw, 96px) clamp(18px, 4vw, 48px);
+  }
+
+  .belle-repousse-contact__intro {
+    max-width: 840px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .belle-repousse-contact__eyebrow {
+    margin: 0 0 12px;
+    color: #9b2028;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .belle-repousse-contact h1 {
+    margin: 0;
+    color: #2c2032;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+  }
+
+  .belle-repousse-contact__copy {
+    max-width: 680px;
+    margin: 18px auto 0;
+    color: #5a3b3f;
+    font-size: clamp(1rem, 1.6vw, 1.18rem);
+    line-height: 1.65;
+  }
+
+  .belle-repousse-contact__copy p {
+    margin: 0;
+  }
+
+  .belle-repousse-contact__notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 26px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .belle-repousse-contact__notes li {
+    border: 1px solid rgb(155 32 40 / 0.16);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgb(255 255 255 / 0.58);
+    color: #42181b;
+    font-size: 0.86rem;
+    font-weight: 800;
+  }
+
+  .belle-repousse-contact__card {
+    width: 100%;
+    max-width: 880px;
+    margin: clamp(34px, 6vw, 78px) auto 0;
+  }
+
+  .belle-repousse-contact__form {
+    display: grid;
+    gap: 20px;
+  }
+
+  .belle-repousse-contact__row {
+    display: grid;
+    gap: 20px;
+  }
+
+  @media screen and (min-width: 760px) {
+    .belle-repousse-contact__row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .belle-repousse-contact input,
+  .belle-repousse-contact textarea {
+    width: 100%;
+    border: 1.5px solid rgb(65 24 28 / 0.58);
+    border-radius: 12px;
+    padding: 18px 22px;
+    background: rgb(255 255 255 / 0.24);
+    color: #211516;
+    font: inherit;
+    font-size: 1.05rem;
+  }
+
+  .belle-repousse-contact input::placeholder,
+  .belle-repousse-contact textarea::placeholder {
+    color: #704d56;
+    opacity: 1;
+  }
+
+  .belle-repousse-contact textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+
+  .belle-repousse-contact__button {
+    justify-self: start;
+    min-height: 56px;
+    border: 1px solid #9b2028;
+    border-radius: 10px;
+    padding: 0 34px;
+    background: #9b2028;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .belle-repousse-contact__button:hover {
+    background: #7f171f;
+  }
+
+  .belle-repousse-contact__success,
+  .belle-repousse-contact__error {
+    margin: 0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    background: #ffffff;
+    color: #42181b;
+  }
+
+  @media screen and (max-width: 560px) {
+    .belle-repousse-contact h1 {
+      font-size: 3.2rem;
+    }
+
+    .belle-repousse-contact__button {
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Belle Repousse contact",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Libelle accessibilite",
+      "default": "Contact Belle Repousse"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Surtitre",
+      "default": "Besoin d'aide ?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Contact"
+    },
+    {
+      "type": "richtext",
+      "id": "copy",
+      "label": "Texte",
+      "default": "<p>Une question sur la brosse de massage cuir chevelu, votre routine d'huile capillaire ou votre commande ? Ecrivez-nous, nous vous repondrons au plus vite.</p>"
+    },
+    {
+      "type": "text",
+      "id": "notes_label",
+      "label": "Libelle notes",
+      "default": "Informations contact"
+    },
+    {
+      "type": "text",
+      "id": "note_1",
+      "label": "Note 1",
+      "default": "Reponse sous 24 a 48 h"
+    },
+    {
+      "type": "text",
+      "id": "note_2",
+      "label": "Note 2",
+      "default": "Support en francais"
+    },
+    {
+      "type": "text",
+      "id": "note_3",
+      "label": "Note 3",
+      "default": "Conseils routine cuir chevelu"
+    },
+    {
+      "type": "text",
+      "id": "name_label",
+      "label": "Champ nom",
+      "default": "Nom"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Champ email",
+      "default": "E-mail *"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Champ telephone",
+      "default": "Numero de telephone"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Champ message",
+      "default": "Commentaire"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Bouton",
+      "default": "Envoyer"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Message succes",
+      "default": "Merci, votre message a bien ete envoye."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Belle Repousse contact",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

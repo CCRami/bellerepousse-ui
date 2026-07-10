@@ -1,0 +1,73 @@
+{% render 'belle-repousse-site-chrome' %}
+{{ 'belle-repousse-home.css' | asset_url | stylesheet_tag }}
+{{ 'belle-repousse-product.css' | asset_url | stylesheet_tag }}
+
+<section class="br-home br-product" aria-label="{{ section.settings.accessibility_label | escape }}">
+  <div class="br-home__announcement">{{ section.settings.announcement | escape }}</div>
+  <div class="br-shell br-home__hero">
+    <div class="br-home__gallery">
+      <div class="br-home__main-media">
+        {% if product.featured_image != blank %}
+          {{ product.featured_image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 58vw, 100vw', loading: 'eager', class: 'br-home__main-image', alt: product.featured_image.alt | default: section.settings.gallery_alt }}
+        {% endif %}
+      </div>
+      <div class="br-home__thumbs" aria-label="{{ section.settings.gallery_label | escape }}">
+        {% for image in product.images limit: 8 %}
+          {{ image | image_url: width: 420 | image_tag: widths: '210, 420', sizes: '16vw', loading: 'lazy', alt: image.alt | default: section.settings.gallery_alt }}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="br-home__purchase">
+      <p class="br-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h1>{{ product.title | escape }}</h1>
+      <div class="br-home__price" aria-label="{{ section.settings.price_label | escape }}">
+        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+          <span class="br-home__price-current">{{ product.selected_or_first_available_variant.price | money }}</span>
+          <s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>
+        {% else %}
+          <span class="br-home__price-current">{{ product.selected_or_first_available_variant.price | money }}</span>
+        {% endif %}
+      </div>
+      <div class="br-home__lead"><p>{{ section.settings.lead }}</p></div>
+      {% form 'product', product, class: 'br-home__form' %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <label for="br-product-quantity">{{ section.settings.quantity_label | escape }}</label>
+        <input id="br-product-quantity" type="number" name="quantity" value="1" min="1">
+        <button class="br-button br-button--primary" type="submit" name="add" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+          {% if product.selected_or_first_available_variant.available %}{{ section.settings.button_label | escape }}{% else %}{{ section.settings.sold_out_label | escape }}{% endif %}
+        </button>
+      {% endform %}
+      <div class="br-home__trust" aria-label="{{ section.settings.trust_label | escape }}">
+        <span>{{ section.settings.trust_1 | escape }}</span><span>{{ section.settings.trust_2 | escape }}</span><span>{{ section.settings.trust_3 | escape }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="br-shell br-product__description">
+    <p class="br-eyebrow">{{ section.settings.description_eyebrow | escape }}</p>
+    {{ product.description }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Belle Repousse - produit",
+  "settings": [
+    {"type":"text","id":"accessibility_label","label":"Libellé accessibilité","default":"Produit Belle Repousse"},
+    {"type":"text","id":"announcement","label":"Annonce","default":"Livraison suivie offerte en France"},
+    {"type":"text","id":"gallery_label","label":"Libellé galerie","default":"Images du produit"},
+    {"type":"text","id":"gallery_alt","label":"Texte alternatif par défaut","default":"Brosse Belle Repousse de massage du cuir chevelu"},
+    {"type":"text","id":"eyebrow","label":"Surtitre","default":"Soin du cuir chevelu à la maison"},
+    {"type":"text","id":"price_label","label":"Libellé du prix","default":"Prix du produit"},
+    {"type":"text","id":"lead","label":"Introduction","default":"Massage, lumière rouge 630 nm et applicateur d'huile capillaire dans un seul rituel."},
+    {"type":"text","id":"quantity_label","label":"Libellé quantité","default":"Quantité"},
+    {"type":"text","id":"button_label","label":"Bouton","default":"Ajouter au panier"},
+    {"type":"text","id":"sold_out_label","label":"Rupture","default":"Indisponible"},
+    {"type":"text","id":"trust_label","label":"Libellé garanties","default":"Informations d'achat"},
+    {"type":"text","id":"trust_1","label":"Garantie 1","default":"Livraison suivie offerte"},
+    {"type":"text","id":"trust_2","label":"Garantie 2","default":"Retour sous 30 jours"},
+    {"type":"text","id":"trust_3","label":"Garantie 3","default":"Paiement sécurisé"},
+    {"type":"text","id":"description_eyebrow","label":"Surtitre description","default":"Tout savoir sur la brosse"}
+  ],
+  "presets": [{"name":"Belle Repousse - produit"}]
+}
+{% endschema %}

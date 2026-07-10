@@ -10,7 +10,7 @@
 {
   "sections": {
     "contact": {
-      "type": "belle-repousse-contact",
+      "type": "belle-repousse-contact-fresh",
       "name": "Belle Repousse - Contact",
       "settings": {
         "accessibility_label": "Contact Belle Repousse",
