@@ -11,8 +11,8 @@
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
-    "belle_repousse_footer": {
-      "type": "belle-repousse-footer",
+    "belle_repousse_footer_fresh": {
+      "type": "belle-repousse-footer-fresh",
       "name": "Belle Repousse - pied de page",
       "settings": {
         "accessibility_label": "Pied de page Belle Repousse",
@@ -42,6 +42,6 @@
     }
   },
   "order": [
-    "belle_repousse_footer"
+    "belle_repousse_footer_fresh"
   ]
 }
