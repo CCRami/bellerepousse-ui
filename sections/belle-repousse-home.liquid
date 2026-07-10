@@ -11,6 +11,8 @@
   assign editorial_image = featured_product.images[1]
 %}
 
+{% render 'belle-repousse-site-chrome' %}
+
 {{ 'belle-repousse-home.css' | asset_url | stylesheet_tag }}
 
 <section class="br-home" aria-label="{{ section.settings.accessibility_label | escape }}">
