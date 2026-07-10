@@ -82,8 +82,8 @@
       "background": "#F8F5F0",
       "foreground": "#201B18",
       "color1": "#8D1D22",
-      "color2": "#E7EEE7",
-      "color3": "#D6C8BD"
+      "color2": "#F6DFD9",
+      "color3": "#D9B9B1"
     }
   },
   "presets": {
@@ -95,8 +95,8 @@
         "background": "#F8F5F0",
         "foreground": "#201B18",
         "color1": "#8D1D22",
-        "color2": "#E7EEE7",
-        "color3": "#D6C8BD"
+        "color2": "#F6DFD9",
+        "color3": "#D9B9B1"
       }
     }
   }

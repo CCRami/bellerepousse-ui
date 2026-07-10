@@ -18,7 +18,7 @@
         "accessibility_label": "Pied de page Belle Repousse",
         "brand": "Belle Repousse",
         "heading": "Inscrivez-vous a notre newsletter",
-        "copy": "Recevez les offres de lancement, conseils cuir chevelu et nouveautes soin capillaire.",
+        "copy": "Recevez des conseils pour votre routine cuir chevelu et des nouvelles de Belle Repousse.",
         "email_label": "E-mail",
         "button_label": "S'inscrire",
         "nav_label": "Liens du pied de page",
@@ -31,7 +31,11 @@
         "link_4_label": "Contact",
         "link_4_url": "/pages/contact",
         "link_5_label": "Notre histoire",
-        "link_5_url": "/#details-belle-repousse",
+        "link_5_url": "/pages/a-propos",
+        "link_6_label": "Questions frequentes",
+        "link_6_url": "/pages/faq",
+        "link_7_label": "Livraison",
+        "link_7_url": "/pages/politique-de-livraison",
         "disclaimer": "Accessoire de bien-etre capillaire. Ne remplace pas un avis medical.",
         "copyright": "(c) Belle Repousse"
       }

@@ -1,79 +1,12 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "belle_repousse_landing": {
-      "type": "belle-repousse-landing",
-      "name": "Belle Repousse - page produit",
+    "belle_repousse_home": {
+      "type": "belle-repousse-home",
+      "name": "Belle Repousse - accueil",
       "settings": {
-        "featured_product": "brosse-de-massage-cuir-chevelu-led-rouge-630-nm-avec-applicateur-dhuile",
-        "accessibility_label": "Page produit Belle Repousse",
-        "announcement": "Offre de lancement Belle Repousse - routine cuir chevelu a la maison",
-        "gallery_label": "Galerie produit",
-        "hero_image_url": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-massage-cuir-chevelu-led-rouge-produit.png?v=1783606387",
-        "hero_image_alt": "Brosse de massage du cuir chevelu Belle Repousse avec lumiere rouge 630 nm",
-        "detail_image_1_url": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-massage-cuir-chevelu-huile-capillaire.png?v=1783606413",
-        "detail_image_1_alt": "Applicateur d'huile capillaire integre a la brosse Belle Repousse",
-        "detail_image_2_url": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-led-630nm-massage-cuir-chevelu.png?v=1783606425",
-        "detail_image_2_alt": "Lumiere rouge 630 nm pour routine de massage cuir chevelu",
-        "detail_image_3_url": "https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-72-dents-8-billes-applicateur-huile.png?v=1783606445",
-        "detail_image_3_alt": "72 dents souples et 8 billes roulantes pour appliquer le soin capillaire",
-        "eyebrow": "Brosse cuir chevelu LED rouge 630 nm",
-        "heading": "Massez, appliquez votre huile et prenez soin des racines en 10 minutes",
-        "lead": "<p>La brosse Belle Repousse combine massage du cuir chevelu, lumiere rouge 630 nm et applicateur d'huile capillaire pour une routine simple, precise et confortable a la maison.</p>",
-        "price_label": "Prix du produit",
-        "fallback_price": "39,90 EUR",
-        "offer_label": "Offre de lancement",
-        "primary_button_label": "Ajouter au panier",
-        "sold_out_label": "Indisponible",
-        "product_link": "/products/brosse-de-massage-cuir-chevelu-led-rouge-630-nm-avec-applicateur-dhuile",
-        "secondary_button_label": "Voir les details",
-        "trust_label": "Informations boutique",
-        "trust_item_1": "Paiement en EUR",
-        "trust_item_2": "Boutique cible France",
-        "trust_item_3": "Routine 10 minutes",
-        "benefit_1_number": "01",
-        "benefit_1_title": "Massage doux du cuir chevelu",
-        "benefit_1_copy": "72 dents rondes massent les zones difficiles a atteindre sans tirer les cheveux.",
-        "benefit_2_number": "02",
-        "benefit_2_title": "Application uniforme de l'huile",
-        "benefit_2_copy": "Le reservoir 6 ml et les 8 billes roulantes repartissent serum, lotion ou huile capillaire au plus pres des racines.",
-        "benefit_3_number": "03",
-        "benefit_3_title": "Lumiere rouge 630 nm",
-        "benefit_3_copy": "Une fonction LED rouge integree accompagne votre rituel de soin cheveux et cuir chevelu.",
-        "routine_eyebrow": "Routine simple",
-        "routine_heading": "Un geste regulier, facile a garder dans la salle de bain",
-        "step_1": "Remplissez le reservoir avec votre huile, serum ou lotion capillaire prefere.",
-        "step_2": "Passez la brosse par raies sur cuir chevelu sec ou legerement humide.",
-        "step_3": "Choisissez un mode de massage et laissez agir pendant la routine de 10 minutes.",
-        "specs_heading": "Details techniques",
-        "spec_1_label": "Materiaux",
-        "spec_1_value": "ABS, PC et silicone",
-        "spec_2_label": "Batterie",
-        "spec_2_value": "Lithium 1400 mAh, charge USB 5 V",
-        "spec_3_label": "Reservoir",
-        "spec_3_value": "6 ml avec 8 billes roulantes",
-        "spec_4_label": "Format",
-        "spec_4_value": "21,2 x 8,5 x 3,5 cm, 233 g",
-        "faq_eyebrow": "Questions frequentes",
-        "faq_heading": "Avant de commencer votre routine",
-        "faq_1_question": "La brosse remplace-t-elle un traitement medical ?",
-        "faq_1_answer": "Non. Elle accompagne une routine cosmetique de massage et d'application de soin capillaire. En cas de chute importante ou de probleme du cuir chevelu, demandez conseil a un professionnel de sante.",
-        "faq_2_question": "Puis-je utiliser mon huile capillaire habituelle ?",
-        "faq_2_answer": "Oui, le reservoir est concu pour distribuer une huile, un serum ou une lotion fluide. Nettoyez le reservoir apres usage pour garder une application propre.",
-        "faq_3_question": "Combien de temps dure une session ?",
-        "faq_3_answer": "La brosse dispose d'un minuteur de 10 minutes, pratique pour garder une routine reguliere sans y penser."
+        "featured_product": "brosse-de-massage-cuir-chevelu-led-rouge-630-nm-avec-applicateur-dhuile"
       }
     }
   },
-  "order": [
-    "belle_repousse_landing"
-  ]
+  "order": ["belle_repousse_home"]
 }
