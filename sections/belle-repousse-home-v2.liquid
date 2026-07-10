@@ -14,7 +14,7 @@
 {{ 'belle-repousse-home.css' | asset_url | stylesheet_tag }}
 
 <section class="br-home" aria-label="{{ section.settings.accessibility_label | escape }}">
-  <header class="br-site-header br-site-chrome">
+  <div class="br-site-header br-site-chrome" role="banner">
     <div class="br-site-header__inner">
       <a class="br-site-header__brand" href="{{ routes.root_url }}" aria-label="Belle Repousse - Accueil">Belle Repousse</a>
       <nav class="br-site-header__nav" aria-label="Navigation principale">
@@ -22,7 +22,7 @@
       </nav>
       <a class="br-site-header__cart" href="{{ routes.cart_url }}" aria-label="Panier, {{ cart.item_count }} article(s)">Panier <span>{{ cart.item_count }}</span></a>
     </div>
-  </header>
+  </div>
 
   <div class="br-home__announcement">{{ section.settings.announcement | escape }}</div>
 
@@ -156,7 +156,7 @@
     <a class="br-button br-button--primary" href="#produit">{{ section.settings.closing_button | escape }}</a>
   </div>
 
-  <footer class="br-site-footer br-site-chrome">
+  <div class="br-site-footer br-site-chrome" role="contentinfo">
     <div class="br-site-footer__inner">
       <div class="br-site-footer__newsletter">
         <p class="br-site-footer__brand">Belle Repousse</p>
@@ -174,7 +174,7 @@
       </nav>
       <div class="br-site-footer__bottom"><span>Accessoire de bien-être et de soin capillaire.</span><span>© {{ 'now' | date: '%Y' }} Belle Repousse</span></div>
     </div>
-  </footer>
+  </div>
 </section>
 
 {% schema %}
