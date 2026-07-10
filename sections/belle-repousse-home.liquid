@@ -11,11 +11,11 @@
   assign editorial_image = featured_product.images[1]
 %}
 
-{% render 'belle-repousse-site-chrome' %}
-
 {{ 'belle-repousse-home.css' | asset_url | stylesheet_tag }}
 
 <section class="br-home" aria-label="{{ section.settings.accessibility_label | escape }}">
+  {% render 'belle-repousse-site-chrome' %}
+
   <div class="br-home__announcement">{{ section.settings.announcement | escape }}</div>
 
   <div class="br-shell br-home__hero" id="produit">
