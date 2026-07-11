@@ -1,73 +1,39 @@
+{% liquid
+  assign red_image = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-rouge-coffret_3a665e6a-0882-49e8-9ddf-281beedf42ca.jpg?v=1783731657'
+  assign black_image = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-noir-coffret_f9c8acb5-08d9-4c0a-9b45-3afba8bfb62b.jpg?v=1783731657'
+  assign care_image = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-soin-cible-630nm_30a22121-6a36-49b5-863e-51ec6fe36547.png?v=1783731658'
+%}
 {% render 'belle-repousse-site-chrome' %}
 {{ 'belle-repousse-home.css' | asset_url | stylesheet_tag }}
 {{ 'belle-repousse-product.css' | asset_url | stylesheet_tag }}
+{{ 'belle-repousse-enhancements.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'belle-repousse-gallery.js' | asset_url }}" defer></script>
+<script src="{{ 'belle-repousse-purchase.js' | asset_url }}" defer></script>
 
 <section class="br-home br-product" aria-label="{{ section.settings.accessibility_label | escape }}">
   <div class="br-home__announcement">{{ section.settings.announcement | escape }}</div>
-  <div class="br-shell br-home__hero">
-    <div class="br-home__gallery">
-      <div class="br-home__main-media">
-        {% if product.featured_image != blank %}
-          {{ product.featured_image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 58vw, 100vw', loading: 'eager', class: 'br-home__main-image', alt: product.featured_image.alt | default: section.settings.gallery_alt }}
-        {% endif %}
-      </div>
+  <div class="br-shell br-home__hero" id="produit">
+    <div class="br-home__gallery" data-br-gallery>
+      <div class="br-home__main-media"><img class="br-home__main-image" src="{{ red_image }}" alt="Brosse Belle Repousse rouge" width="1600" height="1600" loading="eager"></div>
       <div class="br-home__thumbs" aria-label="{{ section.settings.gallery_label | escape }}">
-        {% for image in product.images limit: 8 %}
-          {{ image | image_url: width: 420 | image_tag: widths: '210, 420', sizes: '16vw', loading: 'lazy', alt: image.alt | default: section.settings.gallery_alt }}
-        {% endfor %}
+        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ red_image }}" data-br-gallery-alt="Brosse Belle Repousse rouge" aria-label="Afficher la brosse rouge" aria-pressed="true"><img src="{{ red_image }}" alt="" width="420" height="420" loading="lazy"></button>
+        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ black_image }}" data-br-gallery-alt="Brosse Belle Repousse noire" aria-label="Afficher la brosse noire" aria-pressed="false"><img src="{{ black_image }}" alt="" width="420" height="420" loading="lazy"></button>
+        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ care_image }}" data-br-gallery-alt="Soin ciblé du cuir chevelu avec lumière rouge 630 nm" aria-label="Afficher le soin LED rouge" aria-pressed="false"><img src="{{ care_image }}" alt="" width="420" height="420" loading="lazy"></button>
+        {% for image in product.images limit: 2 %}<button type="button" class="br-home__thumb" data-br-gallery-image="{{ image | image_url: width: 1600 }}" data-br-gallery-alt="{{ image.alt | default: section.settings.gallery_alt | escape }}" aria-label="Afficher l'image {{ forloop.index | plus: 3 }}" aria-pressed="false">{{ image | image_url: width: 420 | image_tag: widths: '210, 420', sizes: '16vw', loading: 'lazy', alt: '' }}</button>{% endfor %}
       </div>
     </div>
     <div class="br-home__purchase">
-      <p class="br-eyebrow">{{ section.settings.eyebrow | escape }}</p>
-      <h1>{{ product.title | escape }}</h1>
-      <div class="br-home__price" aria-label="{{ section.settings.price_label | escape }}">
-        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
-          <span class="br-home__price-current">{{ product.selected_or_first_available_variant.price | money }}</span>
-          <s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>
-        {% else %}
-          <span class="br-home__price-current">{{ product.selected_or_first_available_variant.price | money }}</span>
-        {% endif %}
-      </div>
-      <div class="br-home__lead"><p>{{ section.settings.lead }}</p></div>
-      {% form 'product', product, class: 'br-home__form' %}
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        <label for="br-product-quantity">{{ section.settings.quantity_label | escape }}</label>
-        <input id="br-product-quantity" type="number" name="quantity" value="1" min="1">
-        <button class="br-button br-button--primary" type="submit" name="add" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
-          {% if product.selected_or_first_available_variant.available %}{{ section.settings.button_label | escape }}{% else %}{{ section.settings.sold_out_label | escape }}{% endif %}
-        </button>
-      {% endform %}
-      <div class="br-home__trust" aria-label="{{ section.settings.trust_label | escape }}">
-        <span>{{ section.settings.trust_1 | escape }}</span><span>{{ section.settings.trust_2 | escape }}</span><span>{{ section.settings.trust_3 | escape }}</span>
-      </div>
+      <p class="br-eyebrow">{{ section.settings.eyebrow | escape }}</p><h1>{{ product.title | escape }}</h1>
+      <div class="br-home__price" aria-label="{{ section.settings.price_label | escape }}"><span class="br-home__price-current">{{ product.selected_or_first_available_variant.price | money }}</span>{% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}<s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>{% endif %}</div>
+      <div class="br-product__rating">{% content_for 'blocks' %}</div>
+      <div class="br-home__lead"><p>{{ section.settings.lead | escape }}</p></div>
+      {% render 'belle-repousse-purchase-options', product: product, form_class: 'br-home__form', button_label: section.settings.button_label, sold_out_label: section.settings.sold_out_label %}
+      <div class="br-home__trust" aria-label="{{ section.settings.trust_label | escape }}"><span>{{ section.settings.trust_1 | escape }}</span><span>{{ section.settings.trust_2 | escape }}</span><span>{{ section.settings.trust_3 | escape }}</span></div>
     </div>
   </div>
-  <div class="br-shell br-product__description">
-    <p class="br-eyebrow">{{ section.settings.description_eyebrow | escape }}</p>
-    {{ product.description }}
-  </div>
+  <div class="br-shell br-product__description"><p class="br-eyebrow">{{ section.settings.description_eyebrow | escape }}</p>{{ product.description }}</div>
 </section>
 
 {% schema %}
-{
-  "name": "Belle Repousse - produit",
-  "settings": [
-    {"type":"text","id":"accessibility_label","label":"Libellé accessibilité","default":"Produit Belle Repousse"},
-    {"type":"text","id":"announcement","label":"Annonce","default":"Livraison suivie offerte en France"},
-    {"type":"text","id":"gallery_label","label":"Libellé galerie","default":"Images du produit"},
-    {"type":"text","id":"gallery_alt","label":"Texte alternatif par défaut","default":"Brosse Belle Repousse de massage du cuir chevelu"},
-    {"type":"text","id":"eyebrow","label":"Surtitre","default":"Soin du cuir chevelu à la maison"},
-    {"type":"text","id":"price_label","label":"Libellé du prix","default":"Prix du produit"},
-    {"type":"text","id":"lead","label":"Introduction","default":"Massage, lumière rouge 630 nm et applicateur d'huile capillaire dans un seul rituel."},
-    {"type":"text","id":"quantity_label","label":"Libellé quantité","default":"Quantité"},
-    {"type":"text","id":"button_label","label":"Bouton","default":"Ajouter au panier"},
-    {"type":"text","id":"sold_out_label","label":"Rupture","default":"Indisponible"},
-    {"type":"text","id":"trust_label","label":"Libellé garanties","default":"Informations d'achat"},
-    {"type":"text","id":"trust_1","label":"Garantie 1","default":"Livraison suivie offerte"},
-    {"type":"text","id":"trust_2","label":"Garantie 2","default":"Retour sous 30 jours"},
-    {"type":"text","id":"trust_3","label":"Garantie 3","default":"Paiement sécurisé"},
-    {"type":"text","id":"description_eyebrow","label":"Surtitre description","default":"Tout savoir sur la brosse"}
-  ],
-  "presets": [{"name":"Belle Repousse - produit"}]
-}
+{"name":"Belle Repousse - produit","blocks":[{"type":"@app"}],"settings":[{"type":"text","id":"accessibility_label","label":"Libellé accessibilité","default":"Produit Belle Repousse"},{"type":"text","id":"announcement","label":"Annonce","default":"Livraison suivie offerte en France"},{"type":"text","id":"gallery_label","label":"Libellé galerie","default":"Images du produit"},{"type":"text","id":"gallery_alt","label":"Texte alternatif par défaut","default":"Brosse Belle Repousse de massage du cuir chevelu"},{"type":"text","id":"eyebrow","label":"Surtitre","default":"Soin du cuir chevelu à la maison"},{"type":"text","id":"price_label","label":"Libellé du prix","default":"Prix du produit"},{"type":"text","id":"lead","label":"Introduction","default":"Massage, lumière rouge 630 nm et applicateur d'huile capillaire dans un seul rituel."},{"type":"text","id":"button_label","label":"Bouton","default":"Ajouter au panier"},{"type":"text","id":"sold_out_label","label":"Rupture","default":"Indisponible"},{"type":"text","id":"trust_label","label":"Libellé garanties","default":"Informations d'achat"},{"type":"text","id":"trust_1","label":"Garantie 1","default":"Livraison suivie offerte"},{"type":"text","id":"trust_2","label":"Garantie 2","default":"Retour sous 30 jours"},{"type":"text","id":"trust_3","label":"Garantie 3","default":"Paiement sécurisé"},{"type":"text","id":"description_eyebrow","label":"Surtitre description","default":"Tout savoir sur la brosse"}],"presets":[{"name":"Belle Repousse - produit"}]}
 {% endschema %}

@@ -1,0 +1,63 @@
+{% doc %}
+  Renders synchronized color and bundle selectors for the Belle Repousse product.
+
+  @param {product} product - Product sold by the form.
+  @param {string} form_class - CSS class for the product form.
+  @param {string} button_label - Add-to-cart label.
+  @param {string} sold_out_label - Sold-out label.
+{% enddoc %}
+
+{% liquid
+  assign selected_variant = product.selected_or_first_available_variant
+  assign red_variant = product.variants | where: 'title', 'Rouge' | first
+  assign black_variant = product.variants | where: 'title', 'Noir' | first
+  if red_variant == blank
+    assign red_variant = selected_variant
+  endif
+  assign red_image = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-rouge-coffret_3a665e6a-0882-49e8-9ddf-281beedf42ca.jpg?v=1783731657'
+  assign black_image = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-noir-coffret_f9c8acb5-08d9-4c0a-9b45-3afba8bfb62b.jpg?v=1783731657'
+%}
+
+<div class="br-purchase-options" data-br-purchase>
+  <fieldset class="br-choice-group">
+    <legend>Couleur : <strong data-br-color-label>Rouge</strong></legend>
+    <div class="br-color-options">
+      <label class="br-color-option">
+        <input type="radio" name="br-color-{{ section.id }}" value="Rouge" checked data-br-color data-variant-id="{{ red_variant.id }}" data-image="{{ red_image }}" data-available="{{ red_variant.available }}">
+        <span class="br-swatch br-swatch--red" aria-hidden="true"></span><span>Rouge</span>
+      </label>
+      {% if black_variant != blank %}
+        <label class="br-color-option">
+          <input type="radio" name="br-color-{{ section.id }}" value="Noir" data-br-color data-variant-id="{{ black_variant.id }}" data-image="{{ black_image }}" data-available="{{ black_variant.available }}">
+          <span class="br-swatch br-swatch--black" aria-hidden="true"></span><span>Noir</span>
+        </label>
+      {% endif %}
+    </div>
+  </fieldset>
+
+  <fieldset class="br-choice-group">
+    <legend>Choisissez votre offre</legend>
+    <div class="br-bundle-options">
+      <label class="br-bundle-option">
+        <input type="radio" name="br-bundle-{{ section.id }}" value="1" checked data-br-bundle data-total="49,99 €">
+        <span><strong>1 brosse</strong><small>L'essentiel</small></span><b>49,99 €</b>
+      </label>
+      <label class="br-bundle-option">
+        <input type="radio" name="br-bundle-{{ section.id }}" value="2" data-br-bundle data-total="89,98 €">
+        <span><strong>Duo</strong><small>Économisez 10 %</small></span><b>89,98 €</b>
+      </label>
+      <label class="br-bundle-option">
+        <input type="radio" name="br-bundle-{{ section.id }}" value="3" data-br-bundle data-total="127,47 €">
+        <span><strong>Trio</strong><small>Économisez 15 %</small></span><b>127,47 €</b>
+      </label>
+    </div>
+  </fieldset>
+
+  {% form 'product', product, class: form_class %}
+    <input type="hidden" name="id" value="{{ red_variant.id }}" data-br-variant-input>
+    <input type="hidden" name="quantity" value="1" data-br-quantity-input>
+    <button class="br-button br-button--primary" type="submit" name="add" data-br-add {% unless red_variant.available %}disabled{% endunless %}>
+      <span data-br-add-label>{{ button_label | escape }}</span> · <span data-br-total>49,99 €</span>
+    </button>
+  {% endform %}
+</div>

@@ -10,20 +10,22 @@
   endif
   assign editorial_image = featured_product.images[1]
   assign hero_image_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-led-rouge-produit.png?v=1783683601'
-  assign gallery_image_1_url = hero_image_url
-  assign gallery_image_2_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-3-bienfaits-cuir-chevelu.png?v=1783683563'
-  assign gallery_image_3_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-led-630nm-massage-cuir-chevelu_389733e7-5485-4844-9a74-222337be7a25.png?v=1783683576'
+  assign gallery_image_1_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-rouge-coffret_3a665e6a-0882-49e8-9ddf-281beedf42ca.jpg?v=1783731657'
+  assign gallery_image_2_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-noir-coffret_f9c8acb5-08d9-4c0a-9b45-3afba8bfb62b.jpg?v=1783731657'
+  assign gallery_image_3_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-soin-cible-630nm_30a22121-6a36-49b5-863e-51ec6fe36547.png?v=1783731658'
   assign gallery_image_4_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-3-modes-massage-cuir-chevelu.png?v=1783683589'
   assign gallery_image_5_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-rituel-huile-capillaire.png?v=1783683612'
 %}
 
 {{ 'belle-repousse-home.css' | asset_url | stylesheet_tag }}
+{{ 'belle-repousse-enhancements.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'belle-repousse-gallery.js' | asset_url }}" defer></script>
+<script src="{{ 'belle-repousse-purchase.js' | asset_url }}" defer></script>
 
 <section class="br-home" aria-label="{{ section.settings.accessibility_label | escape }}">
   <div class="br-site-header br-site-chrome" role="banner">
     <div class="br-site-header__inner">
-      <a class="br-site-header__brand" href="{{ routes.root_url }}" aria-label="Belle Repousse - Accueil">Belle Repousse</a>
+      <a class="br-site-header__brand" href="{{ routes.root_url }}" aria-label="Belle Repousse - Accueil"><img src="{{ 'belle-repousse-logo-header.png' | asset_url }}" alt="Belle Repousse" width="240" height="102"></a>
       <nav class="br-site-header__nav" aria-label="Navigation principale">
         <a href="#produit">Le produit</a><a href="#bienfaits">Bienfaits</a><a href="#utilisation">Utilisation</a><a href="{{ pages['faq'].url | default: '/pages/faq' }}">FAQ</a><a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
       </nav>
@@ -33,17 +35,18 @@
 
   <div class="br-home__announcement">{{ section.settings.announcement | escape }}</div>
 
-  <div class="br-home__hero-banner">
-    <img
-      src="{{ hero_image_url }}"
-      alt="Brosse Belle Repousse de massage du cuir chevelu avec lumière rouge"
-      width="1600"
-      height="1000"
-      loading="eager"
-    >
+  <div class="br-home__hero-banner br-home__hero-banner--{{ section.settings.hero_height }}">
+    {% if section.settings.hero_video != blank %}
+      {{ section.settings.hero_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '2000x', class: 'br-home__hero-video' }}
+    {% elsif section.settings.hero_image != blank %}
+      {{ section.settings.hero_image | image_url: width: 2200 | image_tag: widths: '750, 1200, 1600, 2200', sizes: '100vw', loading: 'eager', class: 'br-home__hero-image', alt: section.settings.hero_image.alt | default: section.settings.hero_heading }}
+    {% else %}
+      <img class="br-home__hero-image" src="{{ hero_image_url }}" alt="Brosse Belle Repousse de massage du cuir chevelu avec lumière rouge" width="1600" height="1000" loading="eager">
+    {% endif %}
     <div class="br-home__hero-banner-copy">
       <p class="br-eyebrow">Belle Repousse</p>
-      <h2>Le rituel soin du cuir chevelu, à la maison</h2>
+      <h2>{{ section.settings.hero_heading | escape }}</h2>
+      <a class="br-button br-button--hero" href="#produit">{{ section.settings.hero_cta_label | escape }}</a>
     </div>
   </div>
 
@@ -65,7 +68,7 @@
         <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_1_url }}" data-br-gallery-alt="Brosse Belle Repousse de massage du cuir chevelu" aria-label="Afficher la photo principale" aria-pressed="true">
           <img src="{{ gallery_image_1_url }}" alt="" width="420" height="263" loading="lazy">
         </button>
-        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_2_url }}" data-br-gallery-alt="Trois bienfaits du massage du cuir chevelu" aria-label="Afficher les bienfaits du massage" aria-pressed="false">
+        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_2_url }}" data-br-gallery-alt="Brosse Belle Repousse noire" aria-label="Afficher la brosse noire" aria-pressed="false">
           <img src="{{ gallery_image_2_url }}" alt="" width="420" height="420" loading="lazy">
         </button>
         <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_3_url }}" data-br-gallery-alt="Soin ciblé du cuir chevelu avec lumière rouge 630 nm" aria-label="Afficher le soin LED rouge" aria-pressed="false">
@@ -95,13 +98,7 @@
       </div>
 
       {% if featured_product != blank and selected_variant != blank %}
-        {% form 'product', featured_product, class: 'br-home__form' %}
-          <input type="hidden" name="id" value="{{ selected_variant.id }}">
-          <input type="hidden" name="quantity" value="1">
-          <button class="br-button br-button--primary" type="submit" name="add" {% unless product_available %}disabled{% endunless %}>
-            {% if product_available %}{{ section.settings.primary_button_label | escape }}{% else %}{{ section.settings.sold_out_label | escape }}{% endif %}
-          </button>
-        {% endform %}
+        {% render 'belle-repousse-purchase-options', product: featured_product, form_class: 'br-home__form', button_label: section.settings.primary_button_label, sold_out_label: section.settings.sold_out_label %}
       {% endif %}
 
       <div class="br-home__trust" aria-label="{{ section.settings.trust_label | escape }}">
@@ -168,6 +165,11 @@
     </dl>
   </div>
 
+  <div class="br-shell br-home__reviews" aria-label="Avis clients">
+    <div class="br-section-intro"><p class="br-eyebrow">Avis clients</p><h2>Elles partagent leur rituel</h2></div>
+    <div class="br-home__app-blocks">{% content_for 'blocks' %}</div>
+  </div>
+
   <div class="br-shell br-home__faq" id="faq">
     <div class="br-section-intro">
       <p class="br-eyebrow">{{ section.settings.faq_eyebrow | escape }}</p>
@@ -197,8 +199,14 @@
 {
   "name": "Belle Repousse - accueil",
   "disabled_on": {"groups": ["header", "footer"]},
+  "blocks": [{"type":"@app"}],
   "settings": [
     {"type":"product","id":"featured_product","label":"Produit mis en avant","info":"Sélectionnez le produit unique vendu sur la boutique."},
+    {"type":"video","id":"hero_video","label":"Vidéo du hero","info":"Lecture automatique, muette et en boucle. L'image reste utilisée si aucune vidéo n'est sélectionnée."},
+    {"type":"image_picker","id":"hero_image","label":"Image de remplacement du hero"},
+    {"type":"text","id":"hero_heading","label":"Titre du hero","default":"Le rituel soin du cuir chevelu, à la maison"},
+    {"type":"text","id":"hero_cta_label","label":"Bouton du hero","default":"Choisir ma brosse"},
+    {"type":"select","id":"hero_height","label":"Hauteur du hero","default":"520","options":[{"value":"420","label":"Compacte - 420 px"},{"value":"470","label":"Moyenne - 470 px"},{"value":"520","label":"Grande - 520 px"}]},
     {"type":"text","id":"accessibility_label","label":"Libellé accessibilité","default":"Belle Repousse - soin du cuir chevelu"},
     {"type":"text","id":"announcement","label":"Annonce","default":"Livraison suivie offerte en France"},
     {"type":"text","id":"gallery_label","label":"Libellé galerie","default":"Images du produit"},
