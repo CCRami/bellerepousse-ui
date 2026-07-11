@@ -1,2 +1,5 @@
 # Local reference material used during storefront design.
 assets/myassets/
+video-production/node_modules/
+video-production/out/
+video-production/public/source/

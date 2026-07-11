@@ -1,0 +1,23 @@
+{
+  "name": "belle-repousse-hero-video",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render:desktop": "remotion render src/index.ts BelleRepousseDesktop out/belle-repousse-hero-desktop.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p --muted --overwrite",
+    "render:mobile": "remotion render src/index.ts BelleRepousseMobile out/belle-repousse-hero-mobile.mp4 --codec=h264 --crf=20 --pixel-format=yuv420p --muted --overwrite",
+    "render": "npm run render:desktop && npm run render:mobile",
+    "still:desktop": "remotion still src/index.ts BelleRepousseDesktop out/desktop-preview.png --frame=210 --overwrite",
+    "still:mobile": "remotion still src/index.ts BelleRepousseMobile out/mobile-preview.png --frame=210 --overwrite"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.487",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "remotion": "4.0.487"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.10",
+    "typescript": "5.9.2"
+  }
+}

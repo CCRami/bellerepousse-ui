@@ -10,6 +10,10 @@
   endif
   assign editorial_image = featured_product.images[1]
   assign hero_image_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-brosse-led-rouge-produit.png?v=1783683601'
+  assign hero_poster_url = hero_image_url
+  if section.settings.hero_image != blank
+    assign hero_poster_url = section.settings.hero_image | image_url: width: 2200
+  endif
   assign gallery_image_1_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-rouge-coffret_3a665e6a-0882-49e8-9ddf-281beedf42ca.jpg?v=1783731657'
   assign gallery_image_2_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-noir-coffret_f9c8acb5-08d9-4c0a-9b45-3afba8bfb62b.jpg?v=1783731657'
   assign gallery_image_3_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-soin-cible-630nm_30a22121-6a36-49b5-863e-51ec6fe36547.png?v=1783731658'
@@ -36,13 +40,19 @@
   <div class="br-home__announcement">{{ section.settings.announcement | escape }}</div>
 
   <div class="br-home__hero-banner br-home__hero-banner--{{ section.settings.hero_height }}">
-    {% if section.settings.hero_video != blank %}
-      {{ section.settings.hero_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '2000x', class: 'br-home__hero-video' }}
-    {% elsif section.settings.hero_image != blank %}
-      {{ section.settings.hero_image | image_url: width: 2200 | image_tag: widths: '750, 1200, 1600, 2200', sizes: '100vw', loading: 'eager', class: 'br-home__hero-image', alt: section.settings.hero_image.alt | default: section.settings.hero_heading }}
-    {% else %}
-      <img class="br-home__hero-image" src="{{ hero_image_url }}" alt="Brosse Belle Repousse de massage du cuir chevelu avec lumière rouge" width="1600" height="1000" loading="eager">
-    {% endif %}
+    <img class="br-home__hero-image" src="{{ hero_poster_url }}" alt="Brosse Belle Repousse de massage du cuir chevelu avec lumière rouge" width="1920" height="720" loading="eager">
+    <video class="br-home__hero-video" autoplay muted loop playsinline preload="metadata" poster="{{ hero_poster_url }}" aria-hidden="true">
+      {% if section.settings.hero_video != blank %}
+        {% for source in section.settings.hero_video.sources %}<source src="{{ source.url }}" type="{{ source.mime_type }}" media="(min-width: 700px)">{% endfor %}
+      {% else %}
+        <source src="{{ 'belle-repousse-hero-desktop.mp4' | asset_url }}" type="video/mp4" media="(min-width: 700px)">
+      {% endif %}
+      {% if section.settings.hero_video_mobile != blank %}
+        {% for source in section.settings.hero_video_mobile.sources %}<source src="{{ source.url }}" type="{{ source.mime_type }}" media="(max-width: 699px)">{% endfor %}
+      {% else %}
+        <source src="{{ 'belle-repousse-hero-mobile.mp4' | asset_url }}" type="video/mp4" media="(max-width: 699px)">
+      {% endif %}
+    </video>
     <div class="br-home__hero-banner-copy">
       <p class="br-eyebrow">Belle Repousse</p>
       <h2>{{ section.settings.hero_heading | escape }}</h2>
@@ -207,6 +217,7 @@
   "settings": [
     {"type":"product","id":"featured_product","label":"Produit mis en avant","info":"Sélectionnez le produit unique vendu sur la boutique."},
     {"type":"video","id":"hero_video","label":"Vidéo du hero","info":"Lecture automatique, muette et en boucle. L'image reste utilisée si aucune vidéo n'est sélectionnée."},
+    {"type":"video","id":"hero_video_mobile","label":"Vidéo du hero sur mobile","info":"Format vertical recommandé. La version Belle Repousse incluse est utilisée si ce réglage reste vide."},
     {"type":"image_picker","id":"hero_image","label":"Image de remplacement du hero"},
     {"type":"text","id":"hero_heading","label":"Titre du hero","default":"Le rituel soin du cuir chevelu, à la maison"},
     {"type":"text","id":"hero_cta_label","label":"Bouton du hero","default":"Choisir ma brosse"},
