@@ -39,6 +39,20 @@
   };
 
   const initAll = (scope = document) => scope.querySelectorAll('[data-br-purchase]').forEach(initPurchase);
+  document.addEventListener('click', (event) => {
+    const reviewLink = event.target.closest('[data-br-reviews-link]');
+    if (!reviewLink) return;
+
+    const reviewSection = document.getElementById('avis-clients');
+    if (!reviewSection) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    reviewSection.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'start',
+    });
+  }, true);
   document.addEventListener('DOMContentLoaded', () => initAll());
   document.addEventListener('shopify:section:load', (event) => initAll(event.target));
 })();
