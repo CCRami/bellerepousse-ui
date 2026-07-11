@@ -65,10 +65,10 @@
       </div>
 
       <div class="br-home__thumbs" aria-label="{{ section.settings.gallery_label | escape }}">
-        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_1_url }}" data-br-gallery-alt="Brosse Belle Repousse de massage du cuir chevelu" aria-label="Afficher la photo principale" aria-pressed="true">
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Rouge" data-br-gallery-image="{{ gallery_image_1_url }}" data-br-gallery-alt="Brosse Belle Repousse de massage du cuir chevelu" aria-label="Afficher la photo principale" aria-pressed="true">
           <img src="{{ gallery_image_1_url }}" alt="" width="420" height="263" loading="lazy">
         </button>
-        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_2_url }}" data-br-gallery-alt="Brosse Belle Repousse noire" aria-label="Afficher la brosse noire" aria-pressed="false">
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Noir" data-br-gallery-image="{{ gallery_image_2_url }}" data-br-gallery-alt="Brosse Belle Repousse noire" aria-label="Afficher la brosse noire" aria-pressed="false" hidden>
           <img src="{{ gallery_image_2_url }}" alt="" width="420" height="420" loading="lazy">
         </button>
         <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_3_url }}" data-br-gallery-alt="Soin ciblé du cuir chevelu avec lumière rouge 630 nm" aria-label="Afficher le soin LED rouge" aria-pressed="false">
