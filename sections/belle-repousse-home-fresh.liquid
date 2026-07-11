@@ -96,6 +96,7 @@
           <span class="br-home__price-current">{{ selected_variant.price | money }}</span>
         {% endif %}
       </div>
+      {% render 'belle-repousse-judgeme', product: featured_product, mode: 'badge' %}
 
       {% if featured_product != blank and selected_variant != blank %}
         {% render 'belle-repousse-purchase-options', product: featured_product, form_class: 'br-home__form', button_label: section.settings.primary_button_label, sold_out_label: section.settings.sold_out_label %}
@@ -167,7 +168,10 @@
 
   <div class="br-shell br-home__reviews" aria-label="Avis clients">
     <div class="br-section-intro"><p class="br-eyebrow">Avis clients</p><h2>Elles partagent leur rituel</h2></div>
-    <div class="br-home__app-blocks">{% content_for 'blocks' %}</div>
+    <div class="br-home__app-blocks">
+      {% render 'belle-repousse-judgeme', product: featured_product, mode: 'reviews' %}
+      {% content_for 'blocks' %}
+    </div>
   </div>
 
   <div class="br-shell br-home__faq" id="faq">

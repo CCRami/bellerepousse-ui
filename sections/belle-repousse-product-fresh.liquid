@@ -25,13 +25,17 @@
     <div class="br-home__purchase">
       <p class="br-eyebrow">{{ section.settings.eyebrow | escape }}</p><h1>{{ product.title | escape }}</h1>
       <div class="br-home__price" aria-label="{{ section.settings.price_label | escape }}"><span class="br-home__price-current">{{ product.selected_or_first_available_variant.price | money }}</span>{% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}<s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>{% endif %}</div>
-      <div class="br-product__rating">{% content_for 'blocks' %}</div>
+      <div class="br-product__rating">{% render 'belle-repousse-judgeme', product: product, mode: 'badge' %}</div>
       <div class="br-home__lead"><p>{{ section.settings.lead | escape }}</p></div>
       {% render 'belle-repousse-purchase-options', product: product, form_class: 'br-home__form', button_label: section.settings.button_label, sold_out_label: section.settings.sold_out_label %}
       <div class="br-home__trust" aria-label="{{ section.settings.trust_label | escape }}"><span>{{ section.settings.trust_1 | escape }}</span><span>{{ section.settings.trust_2 | escape }}</span><span>{{ section.settings.trust_3 | escape }}</span></div>
     </div>
   </div>
   <div class="br-shell br-product__description"><p class="br-eyebrow">{{ section.settings.description_eyebrow | escape }}</p>{{ product.description }}</div>
+  <div class="br-shell br-product__reviews">
+    {% render 'belle-repousse-judgeme', product: product, mode: 'reviews' %}
+    {% content_for 'blocks' %}
+  </div>
 </section>
 
 {% schema %}

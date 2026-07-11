@@ -1,0 +1,27 @@
+{% doc %}
+  Renders Judge.me product review surfaces when the app has populated its product metafields.
+
+  @param {product} product - Product whose reviews should be displayed.
+  @param {string} mode - Either badge or reviews.
+{% enddoc %}
+
+{% liquid
+  assign badge_html = product.metafields.judgeme.badge | replace: ' reviews', ' avis' | replace: ' review', ' avis'
+  assign widget_html = product.metafields.judgeme.widget | replace: 'Customer Reviews', 'Avis clients' | replace: 'Write a review', 'Écrire un avis' | replace: 'Based on ', 'Basé sur ' | replace: ' reviews', ' avis' | replace: ' review', ' avis'
+%}
+
+{% if mode == 'badge' %}
+  <div class="jdgm-widget jdgm-preview-badge br-judgeme-badge" data-id="{{ product.id }}">
+    {{ badge_html }}
+  </div>
+{% elsif mode == 'reviews' %}
+  <div
+    id="judgeme_product_reviews"
+    class="jdgm-widget jdgm-review-widget br-judgeme-reviews"
+    data-id="{{ product.id }}"
+    data-product-title="{{ product.title | escape }}"
+    data-handle="{{ product.handle }}"
+  >
+    {{ widget_html }}
+  </div>
+{% endif %}
