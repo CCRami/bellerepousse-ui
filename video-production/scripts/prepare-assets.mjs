@@ -3,7 +3,6 @@ import path from 'node:path';
 
 const files = [
   'snaptik_7471700328363183382_v3.mp4',
-  'snaptik_7531800872146210053_v3.mp4',
   'snaptik_7589589834960850196_v3.mp4',
   'snaptik_7628272399879818518_v3.mp4',
   'ssstik.io_1783694621425.mp4',
@@ -17,4 +16,9 @@ await Promise.all(
   files.map((file) => cp(path.join(sourceDirectory, file), path.join(targetDirectory, file))),
 );
 
-console.log(`Prepared ${files.length} source videos.`);
+await cp(
+  path.join(sourceDirectory, 'ChatGPT_Image_23_juin_2026_18_20_06.png'),
+  path.join(targetDirectory, 'product-red-two-angles.png'),
+);
+
+console.log(`Prepared ${files.length} source videos and one product image.`);

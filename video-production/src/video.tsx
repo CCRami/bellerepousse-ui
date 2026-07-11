@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   AbsoluteFill,
+  Img,
   interpolate,
   OffthreadVideo,
   Sequence,
@@ -12,96 +13,159 @@ type HeroProps = {format: 'desktop' | 'mobile'};
 
 const transitionOpacity = (frame: number, duration: number, first: boolean) =>
   first
-    ? interpolate(frame, [duration - 8, duration], [1, 0], {
+    ? interpolate(frame, [duration - 10, duration], [1, 0], {
         extrapolateLeft: 'clamp',
         extrapolateRight: 'clamp',
       })
-    : interpolate(frame, [0, 8, duration - 8, duration], [0, 1, 1, 0], {
+    : interpolate(frame, [0, 10, duration - 10, duration], [0, 1, 1, 0], {
         extrapolateLeft: 'clamp',
         extrapolateRight: 'clamp',
       });
 
-const FocusedClip: React.FC<{
+const FullBleedClip: React.FC<{
   duration: number;
   file: string;
   format: HeroProps['format'];
   startFrom: number;
   first?: boolean;
-  focusX?: number;
-}> = ({duration, file, format, startFrom, first = false, focusX = 68}) => {
+  desktopPosition: string;
+  mobilePosition: string;
+}> = ({
+  duration,
+  file,
+  format,
+  startFrom,
+  first = false,
+  desktopPosition,
+  mobilePosition,
+}) => {
   const frame = useCurrentFrame();
-  const opacity = transitionOpacity(frame, duration, first);
-  const scale = interpolate(frame, [0, duration], [1, 1.035], {
-    extrapolateRight: 'clamp',
-  });
-  const source = staticFile(`source/new/${file}`);
 
   return (
-    <AbsoluteFill style={{opacity, overflow: 'hidden', backgroundColor: '#321418'}}>
+    <AbsoluteFill
+      style={{
+        opacity: transitionOpacity(frame, duration, first),
+        overflow: 'hidden',
+        backgroundColor: '#321418',
+      }}
+    >
       <OffthreadVideo
-        src={source}
+        src={staticFile(`source/new/${file}`)}
         startFrom={startFrom}
-        playbackRate={0.88}
+        playbackRate={0.9}
         muted
         style={{
           width: '100%',
           height: '100%',
           objectFit: 'cover',
-          transform: 'scale(1.12)',
-          filter: 'blur(28px) brightness(.56) saturate(1.08)',
+          objectPosition: format === 'desktop' ? desktopPosition : mobilePosition,
+          scale: interpolate(frame, [0, duration], [1.01, 1.08], {
+            extrapolateRight: 'clamp',
+          }),
+          filter: 'contrast(1.03) saturate(1.05)',
         }}
       />
       <AbsoluteFill
-        style={
-          format === 'desktop'
-            ? {left: `${focusX - 20}%`, width: '40%', overflow: 'hidden'}
-            : {left: '5%', width: '90%', overflow: 'hidden'}
-        }
-      >
-        <OffthreadVideo
-          src={source}
-          startFrom={startFrom}
-          playbackRate={0.88}
-          muted
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            transform: `scale(${scale})`,
-            filter: 'contrast(1.02) saturate(1.04)',
-          }}
-        />
-      </AbsoluteFill>
-      {format === 'desktop' ? (
-        <AbsoluteFill style={{background: 'linear-gradient(90deg, rgba(35,10,14,.8) 0%, rgba(35,10,14,.42) 35%, transparent 62%)'}} />
-      ) : (
-        <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(35,10,14,.12), transparent 38%, rgba(35,10,14,.2))'}} />
-      )}
+        style={{
+          background:
+            format === 'desktop'
+              ? 'linear-gradient(90deg, rgba(35,10,14,.64) 0%, rgba(35,10,14,.22) 36%, transparent 63%)'
+              : 'linear-gradient(180deg, rgba(35,10,14,.08), transparent 52%, rgba(35,10,14,.18))',
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
+const ProductShowcase: React.FC<{format: HeroProps['format']; duration: number}> = ({
+  format,
+  duration,
+}) => {
+  const frame = useCurrentFrame();
+  const opacity = interpolate(frame, [0, 12, duration - 14, duration], [0, 1, 1, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+
+  return (
+    <AbsoluteFill
+      style={{
+        opacity,
+        overflow: 'hidden',
+        backgroundColor: '#ffffff',
+      }}
+    >
+      <Img
+        src={staticFile('source/new/product-red-two-angles.png')}
+        style={{
+          position: 'absolute',
+          top: format === 'desktop' ? '-22%' : '-5%',
+          right: format === 'desktop' ? '-8%' : '-18%',
+          width: format === 'desktop' ? '100%' : '136%',
+          height: format === 'desktop' ? '145%' : '110%',
+          objectFit: 'contain',
+          scale: interpolate(frame, [0, duration], [1.08, 1], {
+            extrapolateRight: 'clamp',
+          }),
+          filter: 'drop-shadow(0 28px 38px rgba(85, 20, 27, .2))',
+        }}
+      />
+      <AbsoluteFill
+        style={{
+          background:
+            format === 'desktop'
+              ? 'linear-gradient(90deg, rgba(57,13,19,.58), rgba(57,13,19,.13) 40%, transparent 67%)'
+              : 'linear-gradient(180deg, transparent 58%, rgba(57,13,19,.18))',
+        }}
+      />
     </AbsoluteFill>
   );
 };
 
 const clips = [
-  {from: 0, duration: 102, file: 'snaptik_7471700328363183382_v3.mp4', startFrom: 345, focusX: 70},
-  {from: 94, duration: 104, file: 'snaptik_7531800872146210053_v3.mp4', startFrom: 390, focusX: 69},
-  {from: 190, duration: 104, file: 'snaptik_7589589834960850196_v3.mp4', startFrom: 405, focusX: 69},
-  {from: 286, duration: 91, file: 'snaptik_7628272399879818518_v3.mp4', startFrom: 390, focusX: 70},
-  {from: 369, duration: 81, file: 'ssstik.io_1783694621425.mp4', startFrom: 405, focusX: 69},
+  {
+    from: 0,
+    duration: 100,
+    file: 'snaptik_7471700328363183382_v3.mp4',
+    startFrom: 345,
+    desktopPosition: '58% 43%',
+    mobilePosition: '50% 46%',
+  },
+  {
+    from: 90,
+    duration: 100,
+    file: 'snaptik_7589589834960850196_v3.mp4',
+    startFrom: 405,
+    desktopPosition: '51% 40%',
+    mobilePosition: '50% 44%',
+  },
+  {
+    from: 180,
+    duration: 100,
+    file: 'snaptik_7628272399879818518_v3.mp4',
+    startFrom: 390,
+    desktopPosition: '55% 42%',
+    mobilePosition: '50% 45%',
+  },
+  {
+    from: 270,
+    duration: 100,
+    file: 'ssstik.io_1783694621425.mp4',
+    startFrom: 405,
+    desktopPosition: '52% 43%',
+    mobilePosition: '50% 46%',
+  },
 ] as const;
 
 export const BelleRepousseHero: React.FC<HeroProps> = ({format}) => (
   <AbsoluteFill style={{backgroundColor: '#321418'}}>
     {clips.map((clip, index) => (
       <Sequence key={clip.file} from={clip.from} durationInFrames={clip.duration}>
-        <FocusedClip
-          duration={clip.duration}
-          file={clip.file}
-          format={format}
-          startFrom={clip.startFrom}
-          first={index === 0}
-          focusX={clip.focusX}
-        />
+        <FullBleedClip {...clip} format={format} first={index === 0} />
       </Sequence>
     ))}
+    <Sequence from={360} durationInFrames={90}>
+      <ProductShowcase format={format} duration={90} />
+    </Sequence>
   </AbsoluteFill>
 );
