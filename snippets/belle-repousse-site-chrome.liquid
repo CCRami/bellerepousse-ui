@@ -4,20 +4,14 @@ Renders the Belle Repousse site header for storefront templates.
 
 {{ 'belle-repousse-chrome.css' | asset_url | stylesheet_tag }}
 {{ 'belle-repousse-enhancements.css' | asset_url | stylesheet_tag }}
+{{ 'belle-repousse-header-overlay.css' | asset_url | stylesheet_tag }}
 
 <div class="br-site-chrome">
   <header class="br-site-header">
     <div class="br-site-header__inner">
       <a class="br-site-header__brand" href="{{ routes.root_url }}" aria-label="Belle Repousse - Accueil">
-        <img src="{{ 'belle-repousse-logo-header.png' | asset_url }}" alt="Belle Repousse" width="240" height="102">
+        <img src="{{ 'belle-repousse-logo-transparent.png' | asset_url }}" alt="Belle Repousse" width="1756" height="724">
       </a>
-      <nav class="br-site-header__nav" aria-label="Navigation principale">
-        <a href="{{ routes.root_url }}#produit">Le produit</a>
-        <a href="{{ routes.root_url }}#bienfaits">Bienfaits</a>
-        <a href="{{ routes.root_url }}#utilisation">Utilisation</a>
-        <a href="{{ pages['faq'].url | default: routes.root_url | append: '#faq' }}">FAQ</a>
-        <a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
-      </nav>
       <a class="br-site-header__cart" href="{{ routes.cart_url }}" aria-label="Panier, {{ cart.item_count }} article(s)">Panier <span>{{ cart.item_count }}</span></a>
     </div>
   </header>

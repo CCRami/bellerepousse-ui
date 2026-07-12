@@ -27,16 +27,6 @@
 <script src="{{ 'belle-repousse-purchase.js' | asset_url }}" defer></script>
 
 <section class="br-home" aria-label="{{ section.settings.accessibility_label | escape }}">
-  <div class="br-site-header br-site-chrome" role="banner">
-    <div class="br-site-header__inner">
-      <a class="br-site-header__brand" href="{{ routes.root_url }}" aria-label="Belle Repousse - Accueil"><img src="{{ 'belle-repousse-logo-header.png' | asset_url }}" alt="Belle Repousse" width="240" height="102"></a>
-      <nav class="br-site-header__nav" aria-label="Navigation principale">
-        <a href="#produit">Le produit</a><a href="#bienfaits">Bienfaits</a><a href="#utilisation">Utilisation</a><a href="{{ pages['faq'].url | default: '/pages/faq' }}">FAQ</a><a href="{{ pages['contact'].url | default: '/pages/contact' }}">Contact</a>
-      </nav>
-      <a class="br-site-header__cart" href="{{ routes.cart_url }}" aria-label="Panier, {{ cart.item_count }} article(s)">Panier <span>{{ cart.item_count }}</span></a>
-    </div>
-  </div>
-
   <div class="br-home__announcement">{{ section.settings.announcement | escape }}</div>
 
   <div class="br-home__hero-banner br-home__hero-banner--{{ section.settings.hero_height }}">
@@ -53,8 +43,11 @@
         <source src="{{ 'belle-repousse-hero-mobile.mp4' | asset_url }}" type="video/mp4" media="(max-width: 699px)">
       {% endif %}
     </video>
+    <a class="br-home__hero-cart" href="{{ routes.cart_url }}" aria-label="Panier, {{ cart.item_count }} article(s)">Panier <span>{{ cart.item_count }}</span></a>
     <div class="br-home__hero-banner-copy">
-      <p class="br-eyebrow">Belle Repousse</p>
+      <a class="br-home__hero-brand" href="{{ routes.root_url }}" aria-label="Belle Repousse - Accueil">
+        <img src="{{ 'belle-repousse-logo-transparent.png' | asset_url }}" alt="Belle Repousse" width="1756" height="724">
+      </a>
       <h2>{{ section.settings.hero_heading | escape }}</h2>
       <a class="br-button br-button--hero" href="#produit">{{ section.settings.hero_cta_label | escape }}</a>
     </div>
@@ -217,7 +210,7 @@
     {"type":"image_picker","id":"hero_image","label":"Image de remplacement du hero"},
     {"type":"text","id":"hero_heading","label":"Titre du hero","default":"Le rituel soin du cuir chevelu, à la maison"},
     {"type":"text","id":"hero_cta_label","label":"Bouton du hero","default":"Choisir ma brosse"},
-    {"type":"select","id":"hero_height","label":"Hauteur du hero","default":"520","options":[{"value":"420","label":"Compacte - 420 px"},{"value":"470","label":"Moyenne - 470 px"},{"value":"520","label":"Grande - 520 px"}]},
+    {"type":"select","id":"hero_height","label":"Hauteur du hero","default":"720","options":[{"value":"620","label":"Compacte - 620 px"},{"value":"720","label":"Grande - 720 px"},{"value":"820","label":"Immersive - 820 px"}]},
     {"type":"text","id":"accessibility_label","label":"Libellé accessibilité","default":"Belle Repousse - soin du cuir chevelu"},
     {"type":"text","id":"announcement","label":"Annonce","default":"Livraison suivie offerte en France"},
     {"type":"text","id":"gallery_label","label":"Libellé galerie","default":"Images du produit"},

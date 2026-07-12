@@ -1,0 +1,8 @@
+.br-site-header {
+  border: 0;
+  background: transparent;
+}
+
+.br-site-header__inner {
+  justify-content: space-between;
+}

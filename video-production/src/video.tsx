@@ -125,31 +125,47 @@ const ProductShowcase: React.FC<{format: HeroProps['format']; duration: number}>
 const clips = [
   {
     from: 0,
-    duration: 68,
-    file: 'snaptik_7628272399879818518_v3.mp4',
-    startFrom: 120,
+    duration: 58,
+    file: 'snaptik_7429747225296751905_v3.mp4',
+    startFrom: 360,
     desktopPosition: '50% 42%',
     mobilePosition: '50% 44%',
   },
   {
-    from: 58,
-    duration: 142,
+    from: 50,
+    duration: 58,
+    file: 'snaptik_7471700328363183382_v3.mp4',
+    startFrom: 120,
+    desktopPosition: '56% 23%',
+    mobilePosition: '50% 26%',
+  },
+  {
+    from: 100,
+    duration: 58,
+    file: 'snaptik_7531800872146210053_v3.mp4',
+    startFrom: 120,
+    desktopPosition: '50% 35%',
+    mobilePosition: '50% 38%',
+  },
+  {
+    from: 150,
+    duration: 58,
+    file: 'snaptik_7589589834960850196_v3.mp4',
+    startFrom: 120,
+    desktopPosition: '54% 30%',
+    mobilePosition: '50% 32%',
+  },
+  {
+    from: 200,
+    duration: 58,
     file: 'snaptik_7628272399879818518_v3.mp4',
     startFrom: 210,
     desktopPosition: '50% 42%',
     mobilePosition: '50% 44%',
   },
   {
-    from: 190,
-    duration: 84,
-    file: 'snaptik_7589589834960850196_v3.mp4',
-    startFrom: 120,
-    desktopPosition: '54% 22%',
-    mobilePosition: '50% 25%',
-  },
-  {
-    from: 264,
-    duration: 88,
+    from: 250,
+    duration: 58,
     file: 'ssstik.io_1783694621425.mp4',
     startFrom: 210,
     desktopPosition: '50% 34%',
@@ -164,8 +180,8 @@ export const BelleRepousseHero: React.FC<HeroProps> = ({format}) => (
         <FullBleedClip {...clip} format={format} first={index === 0} />
       </Sequence>
     ))}
-    <Sequence from={342} durationInFrames={108}>
-      <ProductShowcase format={format} duration={108} />
+    <Sequence from={300} durationInFrames={150}>
+      <ProductShowcase format={format} duration={150} />
     </Sequence>
   </AbsoluteFill>
 );

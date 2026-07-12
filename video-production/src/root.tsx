@@ -10,7 +10,7 @@ export const RemotionRoot: React.FC = () => (
       durationInFrames={450}
       fps={30}
       width={1920}
-      height={720}
+      height={1080}
       defaultProps={{format: 'desktop' as const}}
     />
     <Composition
@@ -19,7 +19,7 @@ export const RemotionRoot: React.FC = () => (
       durationInFrames={450}
       fps={30}
       width={1080}
-      height={1164}
+      height={1440}
       defaultProps={{format: 'mobile' as const}}
     />
   </>
