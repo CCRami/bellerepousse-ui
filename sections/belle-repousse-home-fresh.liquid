@@ -112,11 +112,7 @@
         {% render 'belle-repousse-purchase-options', product: featured_product, form_class: 'br-home__form', button_label: section.settings.primary_button_label, sold_out_label: section.settings.sold_out_label %}
       {% endif %}
 
-      <div class="br-home__trust" aria-label="{{ section.settings.trust_label | escape }}">
-        <span>{{ section.settings.trust_1 | escape }}</span>
-        <span>{{ section.settings.trust_2 | escape }}</span>
-        <span>{{ section.settings.trust_3 | escape }}</span>
-      </div>
+      {% render 'belle-repousse-trust-badges', label: section.settings.trust_label, best_price_label: section.settings.trust_1, returns_label: section.settings.trust_2, payment_label: section.settings.trust_3 %}
     </div>
   </div>
 
@@ -233,9 +229,9 @@
     {"type":"text","id":"primary_button_label","label":"Bouton principal","default":"Ajouter au panier"},
     {"type":"text","id":"sold_out_label","label":"Rupture de stock","default":"Indisponible"},
     {"type":"text","id":"trust_label","label":"Libellé des garanties","default":"Informations d'achat"},
-    {"type":"text","id":"trust_1","label":"Garantie 1","default":"Livraison suivie offerte"},
-    {"type":"text","id":"trust_2","label":"Garantie 2","default":"Retour sous 30 jours"},
-    {"type":"text","id":"trust_3","label":"Garantie 3","default":"Paiement sécurisé"},
+    {"type":"text","id":"trust_1","label":"Garantie 1","default":"Meilleur prix garanti"},
+    {"type":"text","id":"trust_2","label":"Garantie 2","default":"Retours sous 30 jours"},
+    {"type":"text","id":"trust_3","label":"Garantie 3","default":"Paiement 100 % sécurisé"},
     {"type":"text","id":"benefits_eyebrow","label":"Surtitre bénéfices","default":"Un soin complet"},
     {"type":"text","id":"benefits_heading","label":"Titre bénéfices","default":"Une routine pensée pour vos racines"},
     {"type":"text","id":"benefit_1_title","label":"Bénéfice 1","default":"Massage doux du cuir chevelu"},
