@@ -14,15 +14,19 @@
   if section.settings.hero_image != blank
     assign hero_poster_url = section.settings.hero_image | image_url: width: 2200
   endif
-  assign gallery_image_1_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-rouge-coffret_3a665e6a-0882-49e8-9ddf-281beedf42ca.jpg?v=1783731657'
-  assign gallery_image_2_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-noir-coffret_f9c8acb5-08d9-4c0a-9b45-3afba8bfb62b.jpg?v=1783731657'
-  assign gallery_image_3_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-soin-cible-630nm_30a22121-6a36-49b5-863e-51ec6fe36547.png?v=1783731658'
-  assign gallery_image_4_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-3-modes-massage-cuir-chevelu.png?v=1783683589'
-  assign gallery_image_5_url = 'https://cdn.shopify.com/s/files/1/0949/5311/1937/files/belle-repousse-rituel-huile-capillaire.png?v=1783683612'
+  assign red_image_1 = 'belle-repousse-rouge-1.png' | asset_url
+  assign red_image_2 = 'belle-repousse-rouge-2.png' | asset_url
+  assign red_image_3 = 'belle-repousse-rouge-3.png' | asset_url
+  assign red_image_4 = 'belle-repousse-rouge-4.png' | asset_url
+  assign black_image_1 = 'belle-repousse-noir-1.png' | asset_url
+  assign black_image_2 = 'belle-repousse-noir-2.png' | asset_url
+  assign black_image_3 = 'belle-repousse-noir-3.png' | asset_url
+  assign black_image_4 = 'belle-repousse-noir-4.png' | asset_url
 %}
 
 {{ 'belle-repousse-home.css' | asset_url | stylesheet_tag }}
 {{ 'belle-repousse-enhancements.css' | asset_url | stylesheet_tag }}
+{{ 'belle-repousse-color-gallery.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'belle-repousse-gallery.js' | asset_url }}" defer></script>
 <script src="{{ 'belle-repousse-purchase.js' | asset_url }}" defer></script>
 
@@ -59,30 +63,23 @@
         <img
           id="BelleRepousseHome-main"
           class="br-home__main-image"
-          src="{{ gallery_image_1_url }}"
+          src="{{ red_image_1 }}"
           alt="Brosse Belle Repousse de massage du cuir chevelu"
-          width="1600"
-          height="1000"
+          width="1254"
+          height="1254"
           loading="eager"
         >
       </div>
 
       <div class="br-home__thumbs" aria-label="{{ section.settings.gallery_label | escape }}">
-        <button type="button" class="br-home__thumb" data-br-color-thumb="Rouge" data-br-gallery-image="{{ gallery_image_1_url }}" data-br-gallery-alt="Brosse Belle Repousse de massage du cuir chevelu" aria-label="Afficher la photo principale" aria-pressed="true">
-          <img src="{{ gallery_image_1_url }}" alt="" width="420" height="263" loading="lazy">
-        </button>
-        <button type="button" class="br-home__thumb" data-br-color-thumb="Noir" data-br-gallery-image="{{ gallery_image_2_url }}" data-br-gallery-alt="Brosse Belle Repousse noire" aria-label="Afficher la brosse noire" aria-pressed="false" hidden>
-          <img src="{{ gallery_image_2_url }}" alt="" width="420" height="420" loading="lazy">
-        </button>
-        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_3_url }}" data-br-gallery-alt="Soin ciblé du cuir chevelu avec lumière rouge 630 nm" aria-label="Afficher le soin LED rouge" aria-pressed="false">
-          <img src="{{ gallery_image_3_url }}" alt="" width="420" height="420" loading="lazy">
-        </button>
-        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_4_url }}" data-br-gallery-alt="Trois modes de massage du cuir chevelu" aria-label="Afficher les modes de massage" aria-pressed="false">
-          <img src="{{ gallery_image_4_url }}" alt="" width="420" height="420" loading="lazy">
-        </button>
-        <button type="button" class="br-home__thumb" data-br-gallery-image="{{ gallery_image_5_url }}" data-br-gallery-alt="Rituel d'application d'huile capillaire" aria-label="Afficher le rituel avec huile capillaire" aria-pressed="false">
-          <img src="{{ gallery_image_5_url }}" alt="" width="420" height="420" loading="lazy">
-        </button>
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Rouge" data-br-gallery-image="{{ red_image_1 }}" data-br-gallery-alt="Brosse Belle Repousse rouge avec ses accessoires" aria-label="Afficher la brosse rouge et ses accessoires" aria-pressed="true"><img src="{{ red_image_1 }}" alt="" width="420" height="420" loading="lazy"></button>
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Rouge" data-br-gallery-image="{{ red_image_2 }}" data-br-gallery-alt="Bénéfices de la brosse Belle Repousse rouge" aria-label="Afficher les bénéfices de la brosse rouge" aria-pressed="false"><img src="{{ red_image_2 }}" alt="" width="420" height="420" loading="lazy"></button>
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Rouge" data-br-gallery-image="{{ red_image_3 }}" data-br-gallery-alt="Soin ciblé avec la brosse Belle Repousse rouge" aria-label="Afficher le soin ciblé avec la brosse rouge" aria-pressed="false"><img src="{{ red_image_3 }}" alt="" width="420" height="420" loading="lazy"></button>
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Rouge" data-br-gallery-image="{{ red_image_4 }}" data-br-gallery-alt="Trois modes de massage de la brosse Belle Repousse rouge" aria-label="Afficher les modes de massage de la brosse rouge" aria-pressed="false"><img src="{{ red_image_4 }}" alt="" width="420" height="420" loading="lazy"></button>
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Noir" data-br-gallery-image="{{ black_image_1 }}" data-br-gallery-alt="Brosse Belle Repousse noire avec ses accessoires" aria-label="Afficher la brosse noire et ses accessoires" aria-pressed="false" hidden><img src="{{ black_image_1 }}" alt="" width="420" height="420" loading="lazy"></button>
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Noir" data-br-gallery-image="{{ black_image_2 }}" data-br-gallery-alt="Bénéfices de la brosse Belle Repousse noire" aria-label="Afficher les bénéfices de la brosse noire" aria-pressed="false" hidden><img src="{{ black_image_2 }}" alt="" width="420" height="420" loading="lazy"></button>
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Noir" data-br-gallery-image="{{ black_image_3 }}" data-br-gallery-alt="Soin ciblé avec la brosse Belle Repousse noire" aria-label="Afficher le soin ciblé avec la brosse noire" aria-pressed="false" hidden><img src="{{ black_image_3 }}" alt="" width="420" height="420" loading="lazy"></button>
+        <button type="button" class="br-home__thumb" data-br-color-thumb="Noir" data-br-gallery-image="{{ black_image_4 }}" data-br-gallery-alt="Trois modes de massage de la brosse Belle Repousse noire" aria-label="Afficher les modes de massage de la brosse noire" aria-pressed="false" hidden><img src="{{ black_image_4 }}" alt="" width="420" height="420" loading="lazy"></button>
       </div>
     </div>
 

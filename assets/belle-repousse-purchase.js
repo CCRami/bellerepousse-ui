@@ -17,15 +17,18 @@
       addButton.disabled = input.dataset.available !== 'true';
       const gallery = root.closest('.br-home__hero')?.querySelector('[data-br-gallery]');
       const mainImage = gallery?.querySelector('.br-home__main-image');
-      const colorThumbs = gallery?.querySelectorAll('[data-br-color-thumb]') || [];
+      const colorThumbs = [...(gallery?.querySelectorAll('[data-br-color-thumb]') || [])];
       if (mainImage) {
         mainImage.src = input.dataset.image;
         mainImage.alt = `Brosse Belle Repousse ${input.value.toLowerCase()}`;
       }
+      let selectedThumbFound = false;
       colorThumbs.forEach((thumb) => {
         const isSelectedColor = thumb.dataset.brColorThumb === input.value;
         thumb.hidden = !isSelectedColor;
-        thumb.setAttribute('aria-pressed', isSelectedColor ? 'true' : 'false');
+        const isPrimaryThumb = isSelectedColor && !selectedThumbFound;
+        thumb.setAttribute('aria-pressed', isPrimaryThumb ? 'true' : 'false');
+        if (isPrimaryThumb) selectedThumbFound = true;
       });
     };
 
