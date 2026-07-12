@@ -77,10 +77,7 @@ const FullBleedClip: React.FC<{
   );
 };
 
-const ProductShowcase: React.FC<{format: HeroProps['format']; duration: number}> = ({
-  format,
-  duration,
-}) => {
+const ProductShowcase: React.FC<{duration: number}> = ({duration}) => {
   const frame = useCurrentFrame();
   const opacity = interpolate(frame, [0, 12, duration - 14, duration], [0, 1, 1, 0], {
     extrapolateLeft: 'clamp',
@@ -99,23 +96,15 @@ const ProductShowcase: React.FC<{format: HeroProps['format']; duration: number}>
         src={staticFile('source/new/product-red-two-angles.png')}
         style={{
           position: 'absolute',
-          top: format === 'desktop' ? '-22%' : '-5%',
-          right: format === 'desktop' ? '-8%' : '-18%',
-          width: format === 'desktop' ? '100%' : '136%',
-          height: format === 'desktop' ? '145%' : '110%',
+          inset: 0,
+          width: '100%',
+          height: '100%',
           objectFit: 'contain',
+          objectPosition: 'center 42%',
           scale: interpolate(frame, [0, duration], [1.08, 1], {
             extrapolateRight: 'clamp',
           }),
           filter: 'drop-shadow(0 28px 38px rgba(85, 20, 27, .2))',
-        }}
-      />
-      <AbsoluteFill
-        style={{
-          background:
-            format === 'desktop'
-              ? 'linear-gradient(90deg, rgba(57,13,19,.58), rgba(57,13,19,.13) 40%, transparent 67%)'
-              : 'linear-gradient(180deg, transparent 58%, rgba(57,13,19,.18))',
         }}
       />
     </AbsoluteFill>
@@ -125,22 +114,14 @@ const ProductShowcase: React.FC<{format: HeroProps['format']; duration: number}>
 const clips = [
   {
     from: 0,
-    duration: 58,
-    file: 'snaptik_7429747225296751905_v3.mp4',
-    startFrom: 360,
-    desktopPosition: '50% 42%',
-    mobilePosition: '50% 44%',
-  },
-  {
-    from: 50,
-    duration: 58,
+    duration: 100,
     file: 'snaptik_7471700328363183382_v3.mp4',
     startFrom: 120,
-    desktopPosition: '56% 23%',
+    desktopPosition: '56% 9%',
     mobilePosition: '50% 26%',
   },
   {
-    from: 100,
+    from: 90,
     duration: 58,
     file: 'snaptik_7531800872146210053_v3.mp4',
     startFrom: 120,
@@ -148,7 +129,7 @@ const clips = [
     mobilePosition: '50% 38%',
   },
   {
-    from: 150,
+    from: 140,
     duration: 58,
     file: 'snaptik_7589589834960850196_v3.mp4',
     startFrom: 120,
@@ -156,7 +137,7 @@ const clips = [
     mobilePosition: '50% 32%',
   },
   {
-    from: 200,
+    from: 190,
     duration: 58,
     file: 'snaptik_7628272399879818518_v3.mp4',
     startFrom: 210,
@@ -164,7 +145,7 @@ const clips = [
     mobilePosition: '50% 44%',
   },
   {
-    from: 250,
+    from: 240,
     duration: 58,
     file: 'ssstik.io_1783694621425.mp4',
     startFrom: 210,
@@ -180,8 +161,8 @@ export const BelleRepousseHero: React.FC<HeroProps> = ({format}) => (
         <FullBleedClip {...clip} format={format} first={index === 0} />
       </Sequence>
     ))}
-    <Sequence from={300} durationInFrames={150}>
-      <ProductShowcase format={format} duration={150} />
+    <Sequence from={290} durationInFrames={160}>
+      <ProductShowcase duration={160} />
     </Sequence>
   </AbsoluteFill>
 );
