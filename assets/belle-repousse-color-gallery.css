@@ -1,3 +1,18 @@
 .br-home > .br-home__hero .br-home__main-image {
   aspect-ratio: 1;
 }
+
+.br-trust-badges__link {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.br-trust-badges__image {
+  width: 100%;
+  max-width: 294px;
+  height: auto;
+  max-height: 60px;
+}
