@@ -61,7 +61,7 @@
   <p class="br-stock-status" data-br-stock role="status" aria-live="polite">
     <span class="br-stock-status__dot" aria-hidden="true"></span>
     <span data-br-stock-text>
-      {% if red_variant.inventory_management != blank and red_variant.inventory_quantity > 0 %}
+      {% if red_variant.inventory_quantity > 0 %}
         Stock limité : plus que {{ red_variant.inventory_quantity }} brosse{% if red_variant.inventory_quantity > 1 %}s{% endif %} disponible{% if red_variant.inventory_quantity > 1 %}s{% endif %}.
       {% elsif red_variant.available %}
         En stock, prête à être expédiée.

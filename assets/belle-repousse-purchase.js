@@ -21,12 +21,11 @@
       if (!stockStatus || !stockText) return;
 
       const available = input.dataset.available === 'true';
-      const tracked = input.dataset.inventoryTracked === 'true';
       const quantity = Number.parseInt(input.dataset.inventoryQuantity || '0', 10);
 
       if (!available) {
         stockText.textContent = 'Cette couleur est actuellement indisponible.';
-      } else if (tracked && quantity > 0) {
+      } else if (quantity > 0) {
         const plural = quantity > 1;
         stockText.textContent = `Stock limité : plus que ${quantity} brosse${plural ? 's' : ''} disponible${plural ? 's' : ''}.`;
       } else {
