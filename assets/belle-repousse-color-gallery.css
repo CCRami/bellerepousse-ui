@@ -28,6 +28,98 @@
   max-height: 60px;
 }
 
+.br-stock-status {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+  color: #7d1820;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.br-stock-status__dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #cf2535;
+  box-shadow: 0 0 0 4px rgb(207 37 53 / 0.14);
+}
+
+.br-home__form {
+  display: grid;
+  gap: 8px;
+}
+
+.br-home__form .br-button {
+  box-shadow: 0 8px 20px rgb(69 16 22 / 0.16);
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.br-home__form .br-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgb(69 16 22 / 0.24);
+}
+
+.br-home__form .br-button:active {
+  transform: translateY(0);
+}
+
+.br-button--buy-now {
+  width: 100%;
+  border-color: #451016;
+  background: #321418;
+  color: #ffffff;
+}
+
+.br-button--buy-now:hover {
+  background: #16090c;
+  color: #ffffff;
+}
+
+.br-button--buy-now:disabled,
+.br-button--primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+.br-purchase-error {
+  margin: 0;
+  color: #9f1725;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.br-sticky-purchase {
+  position: fixed;
+  z-index: 30;
+  top: 55%;
+  right: 18px;
+  border: 1px solid rgb(255 255 255 / 0.7);
+  border-radius: 999px;
+  padding: 13px 18px;
+  background: #a51f2a;
+  box-shadow: 0 12px 30px rgb(69 16 22 / 0.3);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition: right 160ms ease, transform 160ms ease, background-color 160ms ease;
+}
+
+.br-sticky-purchase:hover {
+  right: 24px;
+  background: #7d1820;
+  color: #ffffff;
+  transform: scale(1.03);
+}
+
+.br-sticky-purchase[hidden] {
+  display: none;
+}
+
 @media (max-width: 700px) {
   .br-home > .br-home__hero .br-home__main-image {
     height: min(78vw, 390px);
@@ -41,5 +133,17 @@
     display: flex;
     min-height: 36px;
     padding: 0;
+  }
+
+  .br-sticky-purchase {
+    top: auto;
+    right: 16px;
+    bottom: 18px;
+    left: 16px;
+    text-align: center;
+  }
+
+  .br-sticky-purchase:hover {
+    right: 16px;
   }
 }

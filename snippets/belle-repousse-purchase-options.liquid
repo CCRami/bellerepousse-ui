@@ -18,17 +18,17 @@
   assign black_image = 'belle-repousse-noir-1.png' | asset_url
 %}
 
-<div class="br-purchase-options" data-br-purchase>
+<div class="br-purchase-options" data-br-purchase data-br-available-label="{{ button_label | escape }}" data-br-sold-out-label="{{ sold_out_label | escape }}">
   <fieldset class="br-choice-group">
     <legend>Couleur : <strong data-br-color-label>Rouge</strong></legend>
     <div class="br-color-options">
       <label class="br-color-option">
-        <input type="radio" name="br-color-{{ section.id }}" value="Rouge" checked data-br-color data-variant-id="{{ red_variant.id }}" data-image="{{ red_image }}" data-available="{{ red_variant.available }}">
+        <input type="radio" name="br-color-{{ section.id }}" value="Rouge" checked data-br-color data-variant-id="{{ red_variant.id }}" data-image="{{ red_image }}" data-available="{{ red_variant.available }}" data-inventory-tracked="{% if red_variant.inventory_management != blank %}true{% else %}false{% endif %}" data-inventory-quantity="{{ red_variant.inventory_quantity | default: 0 }}">
         <span class="br-swatch br-swatch--red" aria-hidden="true"></span><span>Rouge</span>
       </label>
       {% if black_variant != blank %}
         <label class="br-color-option">
-          <input type="radio" name="br-color-{{ section.id }}" value="Noir" data-br-color data-variant-id="{{ black_variant.id }}" data-image="{{ black_image }}" data-available="{{ black_variant.available }}">
+          <input type="radio" name="br-color-{{ section.id }}" value="Noir" data-br-color data-variant-id="{{ black_variant.id }}" data-image="{{ black_image }}" data-available="{{ black_variant.available }}" data-inventory-tracked="{% if black_variant.inventory_management != blank %}true{% else %}false{% endif %}" data-inventory-quantity="{{ black_variant.inventory_quantity | default: 0 }}">
           <span class="br-swatch br-swatch--black" aria-hidden="true"></span><span>Noir</span>
         </label>
       {% endif %}
@@ -58,11 +58,28 @@
     </div>
   </fieldset>
 
+  <p class="br-stock-status" data-br-stock role="status" aria-live="polite">
+    <span class="br-stock-status__dot" aria-hidden="true"></span>
+    <span data-br-stock-text>
+      {% if red_variant.inventory_management != blank and red_variant.inventory_quantity > 0 %}
+        Stock limité : plus que {{ red_variant.inventory_quantity }} brosse{% if red_variant.inventory_quantity > 1 %}s{% endif %} disponible{% if red_variant.inventory_quantity > 1 %}s{% endif %}.
+      {% elsif red_variant.available %}
+        En stock, prête à être expédiée.
+      {% else %}
+        Cette couleur est actuellement indisponible.
+      {% endif %}
+    </span>
+  </p>
+
   {% form 'product', product, class: form_class %}
     <input type="hidden" name="id" value="{{ red_variant.id }}" data-br-variant-input>
     <input type="hidden" name="quantity" value="1" data-br-quantity-input>
     <button class="br-button br-button--primary" type="submit" name="add" data-br-add {% unless red_variant.available %}disabled{% endunless %}>
-      <span data-br-add-label>{{ button_label | escape }}</span> · <span data-br-total>49,99 €</span>
+      <span data-br-add-label>{% if red_variant.available %}{{ button_label | escape }}{% else %}{{ sold_out_label | escape }}{% endif %}</span> · <span data-br-total>49,99 €</span>
     </button>
+    <button class="br-button br-button--buy-now" type="button" data-br-buy-now {% unless red_variant.available %}disabled{% endunless %}>
+      Acheter maintenant
+    </button>
+    <p class="br-purchase-error" data-br-purchase-error role="alert" hidden></p>
   {% endform %}
 </div>
