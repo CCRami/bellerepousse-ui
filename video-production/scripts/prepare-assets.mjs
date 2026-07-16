@@ -24,7 +24,7 @@ await cp(
 );
 
 await cp(
-  path.join(sourceDirectory, 'ChatGPT Image Jul 16, 2026, 03_04_46 PM.png'),
+  path.join(sourceDirectory, 'ChatGPT Image Jul 16, 2026, 04_05_58 PM.png'),
   path.join(targetDirectory, 'product-red-showcase.png'),
 );
 
