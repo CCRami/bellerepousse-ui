@@ -16,19 +16,24 @@
   endif
   assign red_image = 'belle-repousse-rouge-1.png' | asset_url
   assign black_image = 'belle-repousse-noir-1.png' | asset_url
+  assign solo_total = red_variant.price
+  assign duo_total = red_variant.price | times: 2 | times: 90 | divided_by: 100
+  assign duo_unit = duo_total | divided_by: 2
+  assign trio_total = red_variant.price | times: 3 | times: 85 | divided_by: 100
+  assign trio_unit = trio_total | divided_by: 3
 %}
 
-<div class="br-purchase-options" data-br-purchase data-br-available-label="{{ button_label | escape }}" data-br-sold-out-label="{{ sold_out_label | escape }}">
+<div class="br-purchase-options" data-br-purchase data-br-available-label="{{ button_label | escape }}" data-br-sold-out-label="{{ sold_out_label | escape }}" data-br-currency="{{ cart.currency.iso_code | default: shop.currency | escape }}">
   <fieldset class="br-choice-group">
     <legend>Couleur : <strong data-br-color-label>Rouge</strong></legend>
     <div class="br-color-options">
       <label class="br-color-option">
-        <input type="radio" name="br-color-{{ section.id }}" value="Rouge" checked data-br-color data-variant-id="{{ red_variant.id }}" data-image="{{ red_image }}" data-available="{{ red_variant.available }}" data-inventory-tracked="{% if red_variant.inventory_management != blank %}true{% else %}false{% endif %}" data-inventory-quantity="{{ red_variant.inventory_quantity | default: 0 }}">
+        <input type="radio" name="br-color-{{ section.id }}" value="Rouge" checked data-br-color data-variant-id="{{ red_variant.id }}" data-image="{{ red_image }}" data-price="{{ red_variant.price }}" data-compare-at-price="{{ red_variant.compare_at_price | default: 0 }}" data-available="{{ red_variant.available }}" data-inventory-tracked="{% if red_variant.inventory_management != blank %}true{% else %}false{% endif %}" data-inventory-quantity="{{ red_variant.inventory_quantity | default: 0 }}">
         <span class="br-swatch br-swatch--red" aria-hidden="true"></span><span>Rouge</span>
       </label>
       {% if black_variant != blank %}
         <label class="br-color-option">
-          <input type="radio" name="br-color-{{ section.id }}" value="Noir" data-br-color data-variant-id="{{ black_variant.id }}" data-image="{{ black_image }}" data-available="{{ black_variant.available }}" data-inventory-tracked="{% if black_variant.inventory_management != blank %}true{% else %}false{% endif %}" data-inventory-quantity="{{ black_variant.inventory_quantity | default: 0 }}">
+          <input type="radio" name="br-color-{{ section.id }}" value="Noir" data-br-color data-variant-id="{{ black_variant.id }}" data-image="{{ black_image }}" data-price="{{ black_variant.price }}" data-compare-at-price="{{ black_variant.compare_at_price | default: 0 }}" data-available="{{ black_variant.available }}" data-inventory-tracked="{% if black_variant.inventory_management != blank %}true{% else %}false{% endif %}" data-inventory-quantity="{{ black_variant.inventory_quantity | default: 0 }}">
           <span class="br-swatch br-swatch--black" aria-hidden="true"></span><span>Noir</span>
         </label>
       {% endif %}
@@ -39,21 +44,21 @@
     <legend>Choisissez votre offre</legend>
     <div class="br-bundle-options">
       <label class="br-bundle-option">
-        <input type="radio" name="br-bundle-{{ section.id }}" value="1" checked data-br-bundle data-total="49,99 €">
+        <input type="radio" name="br-bundle-{{ section.id }}" value="1" checked data-br-bundle data-discount="0">
         <span class="br-bundle-option__choice"><strong>Solo</strong><small>1 brosse</small></span>
-        <span class="br-bundle-option__price"><b>49,99 €</b><small>49,99 € / brosse</small></span>
+        <span class="br-bundle-option__price"><b data-br-bundle-total>{{ solo_total | money }}</b><small><span data-br-bundle-unit>{{ solo_total | money }}</span> / brosse</small></span>
       </label>
       <label class="br-bundle-option">
-        <input type="radio" name="br-bundle-{{ section.id }}" value="2" data-br-bundle data-total="89,98 €">
+        <input type="radio" name="br-bundle-{{ section.id }}" value="2" data-br-bundle data-discount="10">
         <span class="br-bundle-option__choice"><strong>Duo</strong><small>2 brosses</small></span>
         <span class="br-bundle-option__saving">-10 %</span>
-        <span class="br-bundle-option__price"><b>89,98 €</b><small>44,99 € / brosse</small></span>
+        <span class="br-bundle-option__price"><b data-br-bundle-total>{{ duo_total | money }}</b><small><span data-br-bundle-unit>{{ duo_unit | money }}</span> / brosse</small></span>
       </label>
       <label class="br-bundle-option">
-        <input type="radio" name="br-bundle-{{ section.id }}" value="3" data-br-bundle data-total="127,47 €">
+        <input type="radio" name="br-bundle-{{ section.id }}" value="3" data-br-bundle data-discount="15">
         <span class="br-bundle-option__choice"><strong>Trio</strong><small>3 brosses</small></span>
         <span class="br-bundle-option__saving">-15 %</span>
-        <span class="br-bundle-option__price"><b>127,47 €</b><small>42,49 € / brosse</small></span>
+        <span class="br-bundle-option__price"><b data-br-bundle-total>{{ trio_total | money }}</b><small><span data-br-bundle-unit>{{ trio_unit | money }}</span> / brosse</small></span>
       </label>
     </div>
   </fieldset>
@@ -75,7 +80,7 @@
     <input type="hidden" name="id" value="{{ red_variant.id }}" data-br-variant-input>
     <input type="hidden" name="quantity" value="1" data-br-quantity-input>
     <button class="br-button br-button--primary" type="submit" name="add" data-br-add {% unless red_variant.available %}disabled{% endunless %}>
-      <span data-br-add-label>{% if red_variant.available %}{{ button_label | escape }}{% else %}{{ sold_out_label | escape }}{% endif %}</span> · <span data-br-total>49,99 €</span>
+      <span data-br-add-label>{% if red_variant.available %}{{ button_label | escape }}{% else %}{{ sold_out_label | escape }}{% endif %}</span> · <span data-br-total>{{ solo_total | money }}</span>
     </button>
     <button class="br-button br-button--buy-now" type="button" data-br-buy-now {% unless red_variant.available %}disabled{% endunless %}>
       Acheter maintenant

@@ -77,7 +77,7 @@ const FullBleedClip: React.FC<{
   );
 };
 
-const ProductShowcase: React.FC<{duration: number}> = ({duration}) => {
+const ProductShowcase: React.FC<{duration: number; format: HeroProps['format']}> = ({duration, format}) => {
   const frame = useCurrentFrame();
   const opacity = interpolate(frame, [0, 12, duration - 14, duration], [0, 1, 1, 0], {
     extrapolateLeft: 'clamp',
@@ -100,7 +100,7 @@ const ProductShowcase: React.FC<{duration: number}> = ({duration}) => {
           width: '100%',
           height: '100%',
           objectFit: 'cover',
-          objectPosition: 'center 48%',
+          objectPosition: format === 'desktop' ? 'center' : '88% center',
           scale: interpolate(frame, [0, duration], [1.04, 1], {
             extrapolateRight: 'clamp',
           }),
@@ -170,7 +170,7 @@ export const BelleRepousseHero: React.FC<HeroProps> = ({format}) => (
       </Sequence>
     ))}
     <Sequence from={326} durationInFrames={124}>
-      <ProductShowcase duration={124} />
+      <ProductShowcase duration={124} format={format} />
     </Sequence>
   </AbsoluteFill>
 );
