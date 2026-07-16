@@ -89,22 +89,22 @@ const ProductShowcase: React.FC<{duration: number}> = ({duration}) => {
       style={{
         opacity,
         overflow: 'hidden',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#24070c',
       }}
     >
       <Img
-        src={staticFile('source/new/product-red-two-angles.png')}
+        src={staticFile('source/new/product-red-showcase.png')}
         style={{
           position: 'absolute',
           inset: 0,
           width: '100%',
           height: '100%',
-          objectFit: 'contain',
-          objectPosition: 'center 42%',
-          scale: interpolate(frame, [0, duration], [1.08, 1], {
+          objectFit: 'cover',
+          objectPosition: 'center 48%',
+          scale: interpolate(frame, [0, duration], [1.04, 1], {
             extrapolateRight: 'clamp',
           }),
-          filter: 'drop-shadow(0 28px 38px rgba(85, 20, 27, .2))',
+          filter: 'contrast(1.02) saturate(1.04)',
         }}
       />
     </AbsoluteFill>
@@ -145,12 +145,20 @@ const clips = [
     mobilePosition: '50% 44%',
   },
   {
-    from: 240,
-    duration: 58,
+    from: 235,
+    duration: 55,
     file: 'ssstik.io_1783694621425.mp4',
     startFrom: 210,
     desktopPosition: '50% 34%',
     mobilePosition: '50% 38%',
+  },
+  {
+    from: 282,
+    duration: 52,
+    file: 'snaptik_7429747225296751905_v3.mp4',
+    startFrom: 1545,
+    desktopPosition: '50% 78%',
+    mobilePosition: '50% 58%',
   },
 ] as const;
 
@@ -161,8 +169,8 @@ export const BelleRepousseHero: React.FC<HeroProps> = ({format}) => (
         <FullBleedClip {...clip} format={format} first={index === 0} />
       </Sequence>
     ))}
-    <Sequence from={290} durationInFrames={160}>
-      <ProductShowcase duration={160} />
+    <Sequence from={326} durationInFrames={124}>
+      <ProductShowcase duration={124} />
     </Sequence>
   </AbsoluteFill>
 );

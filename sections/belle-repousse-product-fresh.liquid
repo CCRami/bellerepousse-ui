@@ -41,7 +41,10 @@
       {% render 'belle-repousse-trust-badges', label: section.settings.trust_label, best_price_label: section.settings.trust_1, returns_label: section.settings.trust_2, payment_label: section.settings.trust_3 %}
     </div>
   </div>
-  <a class="br-sticky-purchase" href="#produit" data-br-sticky-purchase data-br-target="produit" hidden>Acheter la brosse</a>
+  <a class="br-sticky-purchase" href="#produit" data-br-sticky-purchase data-br-target="produit" hidden>
+    <span>Votre rituel</span>
+    <strong>Choisir ma brosse</strong>
+  </a>
   <div class="br-shell br-product__description"><p class="br-eyebrow">{{ section.settings.description_eyebrow | escape }}</p>{{ product.description }}</div>
   <div class="br-shell br-product__reviews" id="avis-clients">
     {% render 'belle-repousse-judgeme', product: product, mode: 'reviews' %}
